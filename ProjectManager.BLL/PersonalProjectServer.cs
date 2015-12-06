@@ -9,7 +9,7 @@ namespace ProjectManager.BLL
 {
     public class PersonalProjectServer
     {
-        PersonalProjectDAL ppd = new PersonalProjectDAL();
+        DAL.PersonalProjectDAL1 ppd = new PersonalProjectDAL1();
         #region 调用相应DAL层获取个人信息以及个人所有申报项目信息的方法
 
         public User GetUserInfo(string ID)

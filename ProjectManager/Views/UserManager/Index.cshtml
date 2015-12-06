@@ -3,6 +3,7 @@
 
 @{
     List<Project_Achievement> project = (List<Project_Achievement>)ViewBag.project;
+    string Title =(string)Session["p_belongs"];
 }
 <!DOCTYPE html>
 <html>
@@ -31,7 +32,7 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
-            <a class="navbar-brand" href="#">@ViewBag.project_belong</a>
+            <a class="navbar-brand" href="#">@Title</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

@@ -10,7 +10,7 @@ namespace ProjectManager.BLL
 {
     public class EachProjectServer
     {
-        EachScheduleDAL eachschedule = new EachScheduleDAL();
+        DAL.EachScheduleDAL eachschedule = new EachScheduleDAL();
 
 
         #region 调用EachScheduleDAL的获取实体方法,获取每个项目进度页所需要的数据

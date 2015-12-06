@@ -214,8 +214,7 @@ public ActionResult index()
 
 
 
-
-        #region 朝钿的代码
+            #region 朝钿的代码
         [Authorize]
         public ActionResult Project_Schedule_Each(int ID)
         {
@@ -314,6 +313,7 @@ public ActionResult index()
             return Json(sum);
         } 
         #endregion
+         
     }
 }
 
