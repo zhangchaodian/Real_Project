@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ProjectManager.Model;
+
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -31,9 +33,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="header-span">身份:管理员</span></li>
-                <li><span class="header-span">账号:20131003616</span></li>
-                <li><span class="header-span">姓名:王小明</span></li>
+                <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
+                <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
                 <li><a href="../admin/Users_Manage.html">管理入口</a></li>
                 <li><a href="../index.html">返回登录界面</a></li>
             </ul>
@@ -60,11 +62,11 @@
             <h2 class="sub-header clearfix">
                <span class="col-md-4">个人申报项目及信息</span>
                <span class="col-md-8">
-               	<form class="form-inline col-md-7 col-sm-8" role="form">
+               	<form class="form-inline col-md-7 col-sm-8" action="/UserManager/Personal_Project" role="form" method="get">
 				   <div class="form-group">
 				      <label class="sr-only" for="name">项目名称</label>
 				      <input type="text" class="form-control" id="name" 
-				         placeholder="请输入项目名称">
+				         placeholder="请输入项目名称" name="keyword">
 				   </div>
 				   <button type="submit" class="btn btn-default ">搜索</button>
 				</form>
@@ -77,157 +79,237 @@
           </div>
 
            <div class="row">	
-           	  <div class="col-md-4">
-				<div class="panel panel-danger">
-				  <div class="panel-heading">
-				    <h4 class="panel-title">第一个申报的项目</h4>
-				  </div>
-				  <div class="panel-body">
-				    <h5>课题类型:IT类</h5>
-				    <h5>所处级别:校级</h5>
-				    <h5>目标级别:省级</h5>
-				    <h5>规划时段:2015-1-1至2015-1-29</h5>
-				    <h5>负责人:张朝钿</h5>
-				    <h5 class="label label-danger">状态:申报未通过</h5>
-				    <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-danger" role="button">详情</a><a href="#" class="btn btn-danger" role="button" style="margin-left: 4px;">取消申报</a></h5>
-				    <h5>
-				    	 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_File">材料更新</button>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
-				    </h5>
-				  </div>
-				</div>	
-			  </div>
+               @foreach (EachSchedule project in ViewBag.projects)
+               {
+                   switch (project.state)
+                   {
+                       case "a":
+                            <div class="col-md-4">
+				            <div class="panel panel-warning">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-warning">状态:申报等待结果...</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-warning" role="button">详情</a></h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id" value="@project.ID"/>
+                                 <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="申报等待结果..."/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                         case "b":
+                           <div class="col-md-4">
+				            <div class="panel panel-danger">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-danger">状态:申报未通过</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-danger" role="button">详情</a><a href="#" class="btn btn-danger" role="button" style="margin-left: 4px;">取消申报</a></h5>
+				                <h5>
+				    	             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_File">材料更新</button>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                  <input type="hidden" class="panel_project_name"value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="申报未通过"/>
+				              </div>
+				            </div>	
+			              </div> 
+                         break;
+                         case "c":
+                         <div class="col-md-4">
+				            <div class="panel panel-info">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-info">状态:通过申报,等待进度完成后审核..</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-info" role="button">详情</a> <a href="Project_Schedule_Each.html" class="btn btn-info" role="button">进度查看</a>
+				                </h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default UpdateProjectState" data-toggle="modal" data-target="#myModal_Task">任务编辑</button>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                  <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="通过申报,等待进度完成后审核.."/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                         case "d":
+			              <div class="col-md-4">
+				            <div class="panel panel-danger">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-danger">状态:审核一未通过</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-danger" role="button">详情</a></h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_File">材料更新</button>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                 <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="审核一未通过"/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                         case "e":
+                         <div class="col-md-4">
+				            <div class="panel panel-info">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-info">状态:已通过审核一，等待审核二</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-info" role="button">详情</a></h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                 <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="已通过审核一，等待审核二"/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                         case "f":
+                         <div class="col-md-4">
+				            <div class="panel panel-danger">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-danger">状态:审核二未通过</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-danger" role="button">详情</a></h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_File">材料更新</button>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                  <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="审核二未通过"/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                         case "g":
+                         <div class="col-md-4">
+				            <div class="panel panel-info">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-info">状态:已通过审核二，等待审核三</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-info" role="button">详情</a></h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                  <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="已通过审核二，等待审核三"/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                         case "h":
+                         <div class="col-md-4">
+				            <div class="panel panel-danger">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-danger">状态:审核三未通过</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-danger" role="button">详情</a></h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_File">材料更新</button>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                  <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="审核三未通过"/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                         case "i":
+                         <div class="col-md-4">
+				            <div class="panel panel-success">
+				              <div class="panel-heading">
+				                <h4 class="panel-title">@project.name</h4>
+				              </div>
+				              <div class="panel-body">
+				                <h5>课题类型:@project.type</h5>
+				                <h5>所处级别:@project.now_level</h5>
+				                <h5>目标级别:@project.target_level</h5>
+				                <h5>规划时段:@project.start_time 至 @project.end_time</h5>
+				                <h5>负责人:@project.Leader_nickname</h5>
+				                <h5 class="label label-success">状态:已通过全部审核</h5>
+				                <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-success" role="button">详情</a>
+				                </h5>
+				                <h5>
+				    	            <button type="button" class="btn btn-default show_project_comment" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
+				                </h5>
+                                  <input type="hidden" class="panel_project_id"value="@project.ID"/>
+                                  <input type="hidden" class="panel_project_name" value="@project.name"/>
+                                 <input type="hidden" class="panel_project_state"value="已通过全部审核."/>
+				              </div>
+				            </div>	
+			              </div>
+                         break;
+                   }
+               }
 
-			  <div class="col-md-4">
-				<div class="panel panel-danger">
-				  <div class="panel-heading">
-				    <h4 class="panel-title">第一个申报的项目</h4>
-				  </div>
-				  <div class="panel-body">
-				    <h5>课题类型:IT类</h5>
-				    <h5>所处级别:校级</h5>
-				    <h5>目标级别:省级</h5>
-				    <h5>规划时段:2015-1-1至2015-1-29</h5>
-				    <h5>负责人:张朝钿</h5>
-				    <h5 class="label label-danger">状态:申报未通过</h5>
-				    <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-danger" role="button">详情</a><a href="#" class="btn btn-danger" role="button" style="margin-left: 4px;">取消申报</a></h5>
-				    <h5>
-				    	 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_File">材料更新</button>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
-				    </h5>
-				  </div>
-				</div>	
-			  </div>
 
-			  <div class="col-md-4">
-				<div class="panel panel-warning">
-				  <div class="panel-heading">
-				    <h4 class="panel-title">第一个申报的项目</h4>
-				  </div>
-				  <div class="panel-body">
-				    <h5>课题类型:IT类</h5>
-				    <h5>所处级别:校级</h5>
-				    <h5>目标级别:省级</h5>
-				    <h5>规划时段:2015-1-1至2015-1-29</h5>
-				    <h5>负责人:张朝钿</h5>
-				    <h5 class="label label-warning">状态:申报等待结果...</h5>
-				    <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-warning" role="button">详情</a></h5>
-				    <h5>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
-				    </h5>
-				  </div>
-				</div>	
-			  </div>
-
-			  <div class="col-md-4">
-				<div class="panel panel-info">
-				  <div class="panel-heading">
-				    <h4 class="panel-title">第一个申报的项目</h4>
-				  </div>
-				  <div class="panel-body">
-				    <h5>课题类型:IT类</h5>
-				    <h5>所处级别:校级</h5>
-				    <h5>目标级别:省级</h5>
-				    <h5>规划时段:2015-1-1至2015-1-29</h5>
-				    <h5>负责人:张朝钿</h5>
-				    <h5 class="label label-info">状态:已通过审核一，等待审核二</h5>
-				    <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-info" role="button">详情</a></h5>
-				    <h5>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
-				    </h5>
-				  </div>
-				</div>	
-			  </div>
-
-			  <div class="col-md-4">
-				<div class="panel panel-danger">
-				  <div class="panel-heading">
-				    <h4 class="panel-title">第一个申报的项目</h4>
-				  </div>
-				  <div class="panel-body">
-				    <h5>课题类型:IT类</h5>
-				    <h5>所处级别:校级</h5>
-				    <h5>目标级别:省级</h5>
-				    <h5>规划时段:2015-1-1至2015-1-29</h5>
-				    <h5>负责人:张朝钿</h5>
-				    <h5 class="label label-danger">状态:审核三未通过</h5>
-				    <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-danger" role="button">详情</a></h5>
-				    <h5>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_File">材料更新</button>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
-				    </h5>
-				  </div>
-				</div>	
-			  </div>
-
-			  <div class="col-md-4">
-				<div class="panel panel-info">
-				  <div class="panel-heading">
-				    <h4 class="panel-title">第一个申报的项目</h4>
-				  </div>
-				  <div class="panel-body">
-				    <h5>课题类型:IT类</h5>
-				    <h5>所处级别:校级</h5>
-				    <h5>目标级别:省级</h5>
-				    <h5>规划时段:2015-1-1至2015-1-29</h5>
-				    <h5>负责人:张朝钿</h5>
-				    <h5 class="label label-info">状态:通过申报,等待进度完成后审核..</h5>
-				    <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-info" role="button">详情</a> <a href="Project_Schedule_Each.html" class="btn btn-info" role="button">进度查看</a>
-				    </h5>
-				    <h5>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Task">任务编辑</button>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
-				    </h5>
-
-				  </div>
-				</div>	
-			  </div>
-
-
-			  <div class="col-md-4">
-				<div class="panel panel-success">
-				  <div class="panel-heading">
-				    <h4 class="panel-title">第一个申报的项目</h4>
-				  </div>
-				  <div class="panel-body">
-				    <h5>课题类型:IT类</h5>
-				    <h5>所处级别:校级</h5>
-				    <h5>目标级别:省级</h5>
-				    <h5>规划时段:2015-1-1至2015-1-29</h5>
-				    <h5>负责人:张朝钿</h5>
-				    <h5 class="label label-success">状态:已通过全部审核</h5>
-				    <h5><a href="~/UserManager/Personal_Project_Disabled" class="btn btn-success" role="button">详情</a>
-				    </h5>
-				    <h5>
-				    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal_Status">状态描述</button>
-				    </h5>
-				  </div>
-				</div>	
-			  </div>	
-
-
-
-			
 		   </div>		
         </div>
 </div>
@@ -236,7 +318,7 @@
 
 <div class="modal fade" id="myModal_CdPw" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-  	<form class="form-horizontal">
+  	<form class="form-horizontal" id="pwdform">
     <div class="modal-content"> 	
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -246,25 +328,25 @@
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">原密码</label>
 		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="inputEmail3" placeholder="请输入原来密码">
+		      <input type="password" class="form-control" id="OldPwd_input" placeholder="请输入原来密码" name="OldPwd" >
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-sm-2 control-label">新密码</label>
 		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="inputPassword3" placeholder="请输入新密码">
+		      <input type="password" class="form-control" id="NewPwdd_input" placeholder="请输入新密码" name="NewPwdd">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-sm-2 control-label">再次密码</label>
 		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="inputPassword3" placeholder="请再次输入新密码">
+		      <input type="password" class="form-control" id="NewPwd_input" placeholder="请再次输入新密码" name="NewPwd">
 		    </div>
 		  </div>       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">保存修改</button>
+        <button type="button" class="btn btn-primary" id="update_pwd">保存修改</button>
       </div>
     </div>
     </form>
@@ -274,50 +356,20 @@
 <!-- 任务编辑 -->
 <div class="modal fade" id="myModal_Task" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-  	<form class="form-horizontal">
+  	<form class="form-horizontal" id="UpdateTaskStateForm">
+     <input type="hidden" name="Task_project_id" id="Task_project_id"/ >      
     <div class="modal-content"> 	
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">某某某项目任务编辑</h4>
+        <h4 class="modal-title" id="project_name">某某某项目任务编辑</h4>
       </div>
-      <div class="modal-body">
-		  <div class="form-group">
-		    <label class="col-sm-2 control-label">任务1</label>
-		    <div class="col-sm-10 col-xs-10 col-md-9">
-             <label class="radio-inline">
-              <input type="radio" name="task1" id="inlineRadio1" value="option1" checked="checked"> 未完成
-             </label>
-             <label class="radio-inline">
-              <input type="radio" name="task1" id="inlineRadio2" value="option2"> 完成
-             </label>
-             </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="inputPassword3" class="col-sm-2 control-label">任务2</label>
-		    <div class="col-sm-10 col-xs-10 col-md-9">
-             <label class="radio-inline">
-              <input type="radio" name="task2" id="inlineRadio1" value="option1" checked="checked"> 未完成
-             </label>
-             <label class="radio-inline">
-              <input type="radio" name="task2" id="inlineRadio2" value="option2"> 完成
-             </label>
-             </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="inputPassword3" class="col-sm-2 control-label">任务3</label>
-		    <div class="col-sm-10 col-xs-10 col-md-9">
-             <label class="radio-inline">
-              <input type="radio" name="task3" id="inlineRadio1" value="option1" checked="checked"> 未完成
-             </label>
-             <label class="radio-inline">
-              <input type="radio" name="task3" id="inlineRadio2" value="option2"> 完成
-             </label>
-             </div>
-		  </div>       
+      <div class="modal-body" id="task_state">
+		  
+     
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="submit" class="btn btn-primary">保存修改</button>
+        <button type="button" class="btn btn-primary" id="UpdateTaskStateButton">保存修改</button>
       </div>
     </div>
     </form>
@@ -331,11 +383,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">项目状态</h4>
+        <h4 class="modal-title" id="modal_project_name">项目状态</h4>
       </div>
       <div class="modal-body">
-        <div class="alert alert-info" role="alert">状态描述:项目申报成功，等待进度完成后审核</div>
-        <div class="alert alert-warning" role="alert">管理员留言:阿迪萨斯的撒旦</div>
+        <div class="alert alert-info" role="alert" id="modal_project_state">状态描述:项目申报成功，等待进度完成后审核</div>
+        <div class="alert alert-warning" role="alert" id="modal_project_comment">管理员留言:阿迪萨斯的撒旦</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -347,7 +399,7 @@
 <!-- 材料更新 -->
 <div class="modal fade" id="myModal_File" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-  	<form class="form-horizontal">
+  	<form class="form-horizontal" action="/UserManager/Upload">
     <div class="modal-content"> 	
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -359,7 +411,7 @@
                          <div class="col-md-1 col-sm-1 col-xs-1"></div>
                          <div class="col-md-10 col-sm-10 col-xs-10">
                           <h4>开题报告word文档上传</h4>
-                            <input id="file0" class="file1" type="file">
+                            <input id="file0" class="file1" name="file1[]" type="file">
                          </div>   
                       </div>
                     </div>
@@ -368,7 +420,7 @@
                          <div class="col-md-1 col-sm-1 col-xs-1"></div>
                          <div class="col-md-10 col-sm-10 col-xs-10">
                           <h4>论文材料word文档上传</h4>
-                            <input id="file1" class="file1" type="file">
+                            <input id="file1" class="file1" name="file2[]"type="file">
                          </div>   
                       </div>
                     </div>
@@ -377,7 +429,7 @@
                          <div class="col-md-1 col-sm-1 col-xs-1"></div>
                          <div class="col-md-10 col-sm-10 col-xs-10">
                           <h4>项目完整材料打包上传</h4>
-                            <input id="file2" class="file2" type="file">
+                            <input id="file2" class="file2" name="file3[]"type="file">
                          </div>   
                       </div>
                     </div>   
@@ -400,7 +452,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="myModal_PerInfo">
   <div class="modal-dialog" role="document">
 <!--     <div class="modal-content"> -->      
-       <form>  
+       <form id="UserInfoForm">  
         <div class="panel panel-default">
 
            <div class="panel-heading">
@@ -408,7 +460,7 @@
             <h3 class="panel-title">账号(教职工号)</h3>
            </div>
            <div class="panel-body">
-             <h5>20131003616</h5>
+             <h5>@ViewBag.user.ID</h5>
            </div>
            <div class="panel-heading">
             <h3 class="panel-title">姓名</h3>
@@ -416,19 +468,31 @@
            <div class="panel-body">
              <div class="form-group">
 			    <label class="sr-only">姓名</label>
-			    <input type="text" class="form-control" id="name" placeholder="请输入姓名" value="张朝钿">
+			    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="请输入姓名" value="@ViewBag.user.nickname">
 			  </div>
            </div>
            <div class="panel-heading">
             <h3 class="panel-title">性别</h3>
            </div>
            <div class="panel-body">
-             <label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 男
-			 </label>
-			 <label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 女
-			 </label>
+               @if (ViewBag.user.sex == "男")
+               {
+                   <label class="radio-inline">
+			          <input type="radio" name="sex" value="男" checked="checked"> 男
+			         </label>
+			         <label class="radio-inline">
+			          <input type="radio" name="sex"value="女"> 女
+			         </label>
+               }
+               else
+               {
+                   <label class="radio-inline">
+			          <input type="radio" name="sex" value="男" checked="checked"> 男
+			         </label>
+			         <label class="radio-inline">
+			          <input type="radio" name="sex" value="女" checked="checked"> 女
+			         </label>
+               }
            </div>
            <div class="panel-heading">
             <h3 class="panel-title">职务</h3>
@@ -436,7 +500,7 @@
            <div class="panel-body">
              <div class="form-group">
 			    <label class="sr-only">职务</label>
-			    <input type="text" class="form-control" id="name" placeholder="请输入职务名称" value="普通教职工">
+			    <input type="text" class="form-control" id="position" name="position"placeholder="请输入职务名称" value="@ViewBag.user.position">
 			  </div>
            </div>
            <div class="panel-heading">
@@ -445,7 +509,7 @@
            <div class="panel-body">
              <div class="form-group">
 			    <label class="sr-only">手机号码</label>
-			    <input type="text" class="form-control" id="name" placeholder="请输入手机号码" value="18819490467">
+			    <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入手机号码" value="@ViewBag.user.phone">
 			  </div>
            </div>
            <div class="panel-heading">
@@ -454,12 +518,12 @@
            <div class="panel-body">
              <div class="form-group">
 			    <label class="sr-only">邮箱</label>
-			    <input type="text" class="form-control" id="name" placeholder="请输入邮箱" value="894535962@qq.com">
+			    <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱" value="@ViewBag.user.email">
 			  </div>
            </div>
 
 			<div class="panel-footer clearfix">
-				<button type="button" class="btn btn-primary" style="float:right;margin-left:10px;">保存修改</button>
+				<button type="button" id="UpdateUserInfo_button" class="btn btn-primary" style="float:right;margin-left:10px;">保存修改</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">关闭</button>
 		    </div>
 
@@ -491,6 +555,172 @@
     $("#file2").fileinput({
         'allowedFileExtensions': ['zip', 'rar'],
     });
+
+    //密码修改js匿名函数
+    (function () {
+        $("#update_pwd").click(function () {
+            var oldpwd = $("OldPwd_input").val();
+            var newpwdd = $("#NewPwdd_input").val();
+            var newpwd = $("#NewPwd_input").val();
+            if (newpwd == '' || oldpwd == '' || newpwdd == '') {
+                alert("输入项不能留空!");
+            }
+            else {
+                if (newpwdd != newpwd) {
+                    alert("两次密码输入不一致!");
+                }
+                else {
+                    $.ajax({
+                        url: "/UserManager/UpdateUserPwd",
+                        type: "POST",
+                        data: $("#pwdform").serialize(),
+                        datatype: "json",
+                        success: function (data) {
+                            if (data == 'a') {
+                                alert("修改密码成功!");
+                            }
+                            else if (data == 'b') {
+                                alert("原密码输入错误!");
+                            }
+                            else if (data == 'c') {
+                                alert("密码修改失败!");
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+
+    })();
+
+    //个人信息修改js匿名函数
+    (function () {
+        $("#UpdateUserInfo_button").click(function () {
+            var nickname = $("#nickname").val().trim();
+            var position = $("#position").val().trim();
+            var phone = $("#phone").val().trim();
+            var email = $("#email").val().trim();
+            function match_str(reg, str) {
+                if (reg.test(str)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            var phone_match = match_str(/^1[358][0-9]{8}[0-9]$/, phone);
+            var email_match = match_str(/^([a-zA-Z0-9]+)@@[a-zA-Z0-9]+\.([a-zA-Z0-9]+)$/, email);
+            if (nickname == '' || position == '' || phone == '' || email == '') {
+                alert("输入项不能留空!");
+
+            }
+            else {
+                if (!phone_match) {
+                    alert("手机号码格式为13、15、18开头的11位纯数字");
+                }
+                else {
+                    if (!email_match) {
+                        alert("邮箱格式不对!");
+                    }
+                    else {
+                        $.ajax({
+                            url: "/UserManager/UpdateUserInfo",
+                            type: "POST",
+                            data: $("#UserInfoForm").serialize(),
+                            datatype: "json",
+                            success: function (data) {
+                                if (data) {
+                                    alert("信息修改成功!");
+                                }
+                                else {
+                                    alert("信息修改失败!");
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    })();
+
+
+
+    //正在进度的项目任务编辑
+    (function () {
+        $(".UpdateProjectState").each(function () {
+            $(this).click(function () {
+                $("#task_state").html("");
+                var project_name = $(this).parent().next().next().val();
+                $("#project_name").text(project_name + "任务编辑");
+                var project_id = $(this).parent().next().val();
+                project_id = parseInt(project_id);
+                $("#Task_project_id").val(project_id);
+                console.log(project_id);
+                $.ajax({
+                    url: "/UserManager/ReturnTasksState/" + project_id,
+                    type: "POST",
+                    datatype: "json",
+                    success: function (data) {
+
+                        data = eval(data);
+                        console.log(data);
+                        for (var index in data) {
+                            var item = $("<div>");
+                            item.addClass("form-group");
+                            if (data[index].state == "a") {
+                                item.html("<label for='inputPassword3' class='col-sm-2 control-label'>" + data[index].task + "</label><div class='col-sm-10 col-xs-10 col-md-9'><label class='radio-inline'><input type='radio' name='" + data[index].ID + "' id='inlineRadio1' value='a' checked='checked'> 未完成</label><label class='radio-inline'><input type='radio'name='" + data[index].ID + "' id='inlineRadio2' value='b'> 完成</label>");
+
+                            }
+                            else if (data[index].state == "b") {
+                                item.html("<label for='inputPassword3' class='col-sm-2 control-label'>" + data[index].task + "</label><div class='col-sm-10 col-xs-10 col-md-9'><label class='radio-inline'><input type='radio' name='" + data[index].ID + "' id='inlineRadio1' value='a' > 未完成</label><label class='radio-inline'><input type='radio'name='" + data[index].ID + "' id='inlineRadio2' value='b' checked='checked'> 完成</label>");
+                            }
+                            item.appendTo("#task_state");
+                        }
+                    }
+                });
+            });
+        });
+
+
+        $("#UpdateTaskStateButton").click(function () {
+            $.ajax({
+                url: "/UserManager/UpdataTaskState",
+                type: "POST",
+                data: $("#UpdateTaskStateForm").serialize(),
+                datatype: "json",
+                success: function (data) {
+                    if (data > 0) alert("状态更新成功!");
+                }
+            });
+        });
+    })();
+
+
+
+    //查看状态描述
+    (function () {
+        $(".show_project_comment").each(function () {
+            $(this).click(function () {
+                var project_id = $(this).parent().nextAll(".panel_project_id").val().trim();
+                var project_name = $(this).parent().nextAll(".panel_project_name").val();
+                var project_state = $(this).parent().nextAll(".panel_project_state").val();
+                console.log(project_id);
+                $("#modal_project_name").text(project_name + "项目状态");
+                $("#modal_project_state").text("状态描述:" + project_state);
+                $.ajax({
+                    url: "/UserManager/ReturnProjectComment",
+                    type: "POST",
+                    data: { project_id: project_id },
+                    datatype: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $("#modal_project_comment").text("管理员留言:" + data);
+                    }
+                });
+            });
+        });
+    })();
 </script>
 </body>
 </html>    
