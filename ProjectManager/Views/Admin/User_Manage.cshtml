@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Header.css">
+    <link rel="stylesheet" href="~/Content/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="icon" href="~/img/favicon.ico">
+    <link href="~/Content/dashboard.css" rel="stylesheet">
+    
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
+            <a class="navbar-brand" href="#">科研项目管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><span class="header-span">身份:管理员</span></li>
+                <li><span class="header-span">账号:20131003616</span></li>
+                <li><span class="header-span">姓名:王小明</span></li>
+                <li><a href="../Home/Project_Achievement.html">返回前台</a></li>
+                <li><a href="../index.html">返回登录界面</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="./Users_Manage.html">用户成员管理<span class="sr-only">(current)</span></a></li>
+                <li><a href="./Project_Manage.html">申报项目管理</a></li>
+            </ul>
+        </div>
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header clearfix">
+               <span>用户成员管理</span>
+               <span class="pull-right">
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_AddUser">添加用户</button>
+               </span>
+            </h2>
+
+            <div class="row search_header">
+                <div class="col-md-7 col-sm-7">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <select class="form-control" name="updownorder">
+                                <optgroup label="用户类型">
+                                    <option value="asc">用户类型(全部)</option>
+                                    <option value="asc">超级管理员</option>
+                                    <option value="asc">普通管理员</option>
+                                    <option value="asc">普通教职工</option>
+                                </optgroup>
+                            </select>
+                            <select class="form-control" name="updownorder">
+                                <optgroup label="性别">
+                                    <option value="asc">性别(全部)</option>
+                                    <option value="asc">男</option>
+                                    <option value="asc">女</option>
+                                </optgroup>
+                            </select>
+                            <select class="form-control" name="updownorder">
+                                <optgroup label="排序">
+                                    <option value="asc">升序</option>
+                                    <option value="asc">降序</option>
+                                </optgroup>
+                            </select>
+                            <button class="btn btn-embossed btn-primary">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5 col-sm-5">
+                    <form class="form-inline">
+                        <select class="form-control" name="updownorder">
+                            <optgroup label="关键字类型">
+                                <option value="asc">用户ID</option>
+                                <option value="asc">姓名</option>
+                                <option value="asc">职务</option>
+                                <option value="asc">邮箱</option>
+                                <option value="asc">电话号码</option>
+                            </optgroup>
+                        </select>
+                        <input type="text" class="form-control" placeholder="输入关键字">
+                        <button class="btn btn-embossed btn-primary">搜索</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>用户ID</th>
+                        <th>用户类型</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>职务</th>
+                        <th>邮箱</th>
+                        <th>电话号码</th>
+                        <th>具体操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>20131003616</td>
+                        <td>超级管理员</td>
+                        <td>张朝钿</td>
+                        <td>男</td>
+                        <td>科研处主任</td>
+                        <td>894535962@qq.com</td>
+                        <td>18819490467</td>
+                        <td><button type="button" class="btn btn-embossed btn-primary btn-xs" data-toggle="modal" data-target="#myModal_ChangeInfo">信息编辑</button><button class="btn btn-embossed btn-danger btn-xs" style="margin-left: 5px;">删除</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal_AddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="form-horizontal">
+    <div class="modal-content">     
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label class="col-sm-2 control-label col-xs-2">用户ID</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputEmail3" placeholder="请输入用户ID" style="width: 90%">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label col-xs-2">用户密码</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputEmail3" placeholder="请输入用户密码" style="width: 90%">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">姓名</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入姓名" style="width: 90%">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">职务</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入职务" style="width: 90%">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">邮箱</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入邮箱" style="width: 90%">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">手机</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入手机" style="width: 90%">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">性别</label>
+            <div class="col-sm-10 col-xs-10">
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 男
+             </label>
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 女
+             </label>
+             </div>
+          </div> 
+          <div class="form-group">
+                      <label for="lastname" class="col-sm-2 control-label col-xs-2">类型</label>
+                      <div class="col-sm-4 col-xs-5 col-md-4">
+                         <select class="form-control input-sm">
+                           <option selected="selected">普通教职员</option>
+                           <option>普通管理员</option>
+                         </select>
+                      </div>
+          </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">添加</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal_ChangeInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="form-horizontal">
+    <div class="modal-content">     
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">用户:20131003616</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">密码</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入密码" style="width: 90%" value="36995425">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">姓名</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入姓名" style="width: 90%" value="张朝钿">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">职务</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入职务" style="width: 90%" value="科研处主任">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">邮箱</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入邮箱" style="width: 90%" value="894535962@qq.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">手机</label>
+            <div class="col-sm-10 col-xs-10">
+              <input type="text" class="form-control" id="inputPassword3" placeholder="请输入手机" style="width: 90%" value="18819490467">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2">性别</label>
+            <div class="col-sm-10 col-xs-10" value="男">
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 男
+             </label>
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 女
+             </label>
+             </div>
+          </div> 
+          <div class="form-group">
+                      <label for="lastname" class="col-sm-2 control-label col-xs-2">类型</label>
+                      <div class="col-sm-4 col-xs-5 col-md-4">
+                         <select class="form-control input-sm">
+                           <option selected="selected">普通教职员</option>
+                           <option>普通管理员</option>
+                         </select>
+                      </div>
+          </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">保存修改</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="~/Scripts/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="~/Scripts/ie10-viewport-bug-workaround.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Content/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="~/Scripts/ie-emulation-modes-warning.js"></script>
+</body>
+
+
+</html>
