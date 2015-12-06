@@ -215,6 +215,122 @@ public ActionResult index()
             string htmlstr = BLL.ProjectServer.getJsonHtml(project);
             return Json(htmlstr, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+
+
+
+
+
+
+        #region 朝钿的代码
+        [Authorize]
+        public ActionResult Project_Schedule_Each(int ID)
+        {
+            ViewBag.user = User.Identity.Name;
+
+            EachProjectServer server = new EachProjectServer();
+            ViewBag.eachschedule = server.GetEachSchedule(ID);
+            ViewBag.members = server.GetMember(ID);
+            ViewBag.tasks = server.GetProject_task(ID);
+            ViewBag.per = server.Get_Schedule_Per(ID);
+
+            return View("Project_Schedule_Each");
+        }
+        [Authorize]
+        public ActionResult Project_Schedule()
+        {
+            ViewBag.user = User.Identity.Name;
+            //List<Model.Project_Schedule_Model> s_model = new List<Project_Schedule_Model>();
+            // s_model = BLL.ProjectServer.getScheduleModel();
+            //ViewBag.s_model = s_model;
+            return View("Project_Schedule");
+        }
+        [Authorize]
+        public ActionResult Personal_Project(string keyword = "")
+        {
+            ViewBag.user = User.Identity.Name;
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.userinfo = userInfo;
+            PersonalProjectServer server = new PersonalProjectServer();
+            ViewBag.user = server.GetUserInfo(userInfo.ID);
+            ViewBag.projects = server.GetUserProject(userInfo.ID, keyword);
+            return View("Personal_Project");
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult UpdateUserPwd(FormCollection formvalues)
+        {
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            string ID = userInfo.ID;
+            string old_pwd = formvalues["OldPwd"];
+            string new_pwd = formvalues["NewPwd"];
+            PersonalProjectServer server = new PersonalProjectServer();
+            char result = server.UpdateUserPwd(ID, old_pwd, new_pwd);
+            return Json(result);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult UpdateUserInfo(FormCollection formvalues)
+        {
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            string ID = userInfo.ID;
+            string nickname = formvalues["nickname"];
+            char sex = Convert.ToChar(formvalues["sex"]);
+            string position = formvalues["position"];
+            string phone = formvalues["phone"];
+            string email = formvalues["email"];
+            PersonalProjectServer server = new PersonalProjectServer();
+            Boolean result = server.UpdateUseInfo(nickname, sex, position, phone, email, ID);
+            return Json(result);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ReturnProjectComment()
+        {
+            int project_id = Convert.ToInt32(Request.Params["project_id"]);
+            PersonalProjectServer server = new PersonalProjectServer();
+            Comment comm = server.SelectProjectComment(project_id);
+            return Json(comm.comment);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult ReturnTasksState(int ID)
+        {
+            //int newID = Convert.ToInt32(ID);
+            PersonalProjectServer server = new PersonalProjectServer();
+            List<Project_Task> tasks = server.SelecTasksState(ID);
+            //List<Project_Task> taskss = new List<Project_Task>();
+            //Project_Task task1 = new Project_Task();
+            //task1.ID = 1;
+            //task1.leader = "aaa";
+            //Project_Task task2 = new Project_Task();
+            //task2.ID = 2;
+            //task2.leader = "bbb";
+            //taskss.Add(task1);
+            //taskss.Add(task2);
+            return Json(tasks);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult UpdataTaskState(FormCollection formvalues)
+        {
+            PersonalProjectServer server = new PersonalProjectServer();
+            int sum = 0;
+            int project_id = Convert.ToInt32(formvalues["Task_project_id"]);
+            foreach (var key in formvalues.Keys)
+            {
+                string str_key = key.ToString();
+                if (str_key != "Task_project_id")
+                {
+                    int ID = Convert.ToInt32(str_key);
+                    char state = Convert.ToChar(formvalues[str_key]);
+                    Boolean result = server.UpdateTaskState(ID, project_id, state);
+                    if (result) sum++;
+                }
+            }
+            return Json(sum);
+        } 
+        #endregion
     }
 }
 
