@@ -84,7 +84,7 @@ namespace ProjectManager.DAL
             EachInfo.start_time = row["start_time"].ToString();
             EachInfo.end_time = row["end_time"].ToString();
             EachInfo.User_nickname = row["User_nickname"].ToString();
-            EachInfo.Leader_email = row["Leader_nickname"].ToString();
+            EachInfo.Leader_nickname = row["Leader_nickname"].ToString();
             EachInfo.Leader_phone = row["Leader_phone"].ToString();
             EachInfo.Leader_email = row["Leader_email"].ToString();
             EachInfo.start_y = row["start_y"].ToString();

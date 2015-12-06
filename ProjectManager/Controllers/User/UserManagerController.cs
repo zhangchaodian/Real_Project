@@ -93,11 +93,6 @@ public ActionResult index()
             return View("Project_Schedule");
         }
         [Authorize]
-        public ActionResult Personal_Project()
-        {
-            ViewBag.user = User.Identity.Name; 
-            return View("Personal_Project");
-        }
         [Authorize]
         public ActionResult Project_Declare(FormCollection collect)
         {
