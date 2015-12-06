@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Header.css">
+    <link rel="stylesheet" href="~/Content/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="icon" href="~/img/favicon.ico">
+    <link href="~/Content/dashboard.css" rel="stylesheet">
+    
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
+            <a class="navbar-brand" href="#">科研项目管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><span class="header-span">身份:管理员</span></li>
+                <li><span class="header-span">账号:20131003616</span></li>
+                <li><span class="header-span">姓名:王小明</span></li>
+                <li><a href="../Home/Project_Achievement.html">返回前台</a></li>
+                <li><a href="../index.html">返回登录界面</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="./Users_Manage.html">用户成员管理</a></li>
+                <li class="active"><a href="./Project_Manage.html">申报项目管理<span class="sr-only">(current)</span></a></li>
+            </ul>
+        </div>
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header clearfix">
+              申报项目管理
+            </h2>
+
+            <div class="row search_header">
+                <div class="col-md-7 col-sm-7">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <select class="form-control" name="updownorder">
+                                <optgroup label="所处级别">
+                                    <option value="asc">所处级别(全部)</option>
+                                    <option value="asc">校级</option>
+                                    <option value="asc">省级</option>
+                                    <option value="asc">国家级</option>
+                                </optgroup>
+                            </select>
+                            <select class="form-control" name="updownorder">
+                                <optgroup label="目标级别">
+                                    <option value="asc">目标级别(全部)</option>
+                                    <option value="asc">校级</option>
+                                    <option value="asc">省级</option>
+                                    <option value="asc">国家级</option>
+                                </optgroup>
+                            </select>
+                            <select class="form-control" name="updownorder">
+                                <optgroup label="审核状态">
+                                    <option value="asc">审核状态(全部)</option>
+                                    <option value="asc">申报等待通过</option>
+                                    <option value="asc">申报未通过</option>
+                                    <option value="asc">申报通过，等待审核一</option>
+                                    <option value="asc">审核一未通过</option>
+                                    <option value="asc">审核一通过</option>
+                                    <option value="asc">审核二未通过</option>
+                                    <option value="asc">审核二通过</option>
+                                    <option value="asc">审核三未通过</option>
+                                    <option value="asc">审核三通过</option>
+                                </optgroup>
+                            </select>
+                            <select class="form-control" name="updownorder">
+                                <optgroup label="排序">
+                                    <option value="asc">升序</option>
+                                    <option value="asc">降序</option>
+                                </optgroup>
+                            </select>
+                            <button class="btn btn-embossed btn-primary">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5 col-sm-5">
+                    <form class="form-inline">
+                        <select class="form-control" name="updownorder">
+                            <optgroup label="关键字类型">
+                                <option value="asc">项目名称</option>
+                                <option value="asc">申报时间</option>
+                                <option value="asc">申报人</option>
+                                <option value="asc">负责人</option>
+                            </optgroup>
+                        </select>
+                        <input type="text" class="form-control" placeholder="输入关键字">
+                        <button class="btn btn-embossed btn-primary">搜索</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>更新时间</th>
+                      <th>申报项目名称</th>
+                      <th>申报时间</th>
+                      <th>申报人</th>
+                      <th>负责人</th>
+                      <th>所处级别</th>
+                      <th>目标级别</th>
+                      <th>审核状态</th>
+                      <th>完成状态</th>
+                      <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>2015-9-10</td>
+                        <td>AAA项目</td>
+                        <td>2015-9-10</td>
+                        <td>张朝钿</td>
+                        <td>张朝钿</td>
+                        <td>市级</td>
+                        <td>省级</td>
+                        <td class="text-danger">申报等待通过</td>
+                        <td class="text-danger">未完成</td>
+                        <td><button type="button" class="btn btn-embossed btn-primary btn-xs" data-toggle="modal" data-target="#myModal_ChangeStatus">审核状态录入</button><button class="btn btn-embossed btn-primary btn-xs" style="margin-left: 5px;"data-toggle="modal" data-target="#myModal_Download">文件材料下载</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal_ChangeStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="form-horizontal">
+    <div class="modal-content">     
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">AAA项目审核状态录入</h4>
+      </div>
+      <div class="modal-body">
+          
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2 col-md-3">申报状态</label>
+            <div class="col-sm-10 col-xs-10 col-md-9">
+              <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 待定
+             </label>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > 未通过
+             </label>
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 通过,等待审核
+             </label>
+             </div>
+          </div>   
+
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2 col-md-3">审核一状态</label>
+            <div class="col-sm-10 col-xs-10 col-md-9">
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > 未通过
+             </label>
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 通过
+             </label>
+             </div>
+           </div>  
+
+           <div class="form-group">  
+            <label for="inputPassword3" class="col-sm-2 control-label col-xs-2 col-md-3">审核二状态</label>
+            <div class="col-sm-10 col-xs-10 col-md-9">
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" >未通过
+             </label>
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 通过
+             </label>
+             </div>  
+           </div>    
+
+          <div class="form-group">   
+             <label for="inputPassword3" class="col-sm-2 control-label col-xs-2 col-md-3">审核三状态</label>
+            <div class="col-sm-10 col-xs-10 col-md-9">
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > 未通过
+             </label>
+             <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 通过
+             </label>
+             </div> 
+          </div>
+
+
+          <div class="form-group">   
+             <label for="inputPassword3" class="col-sm-2 control-label col-xs-2 col-md-3">管理员留言</label>
+            <div class="col-sm-10 col-xs-10 col-md-9">
+              <textarea class="form-control" rows="6" style="width:90%" placeholder="请反馈与该项目审核相关的信息"></textarea>
+            </div>
+          </div>    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-primary">保存修改</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal_Download" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">     
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">AAA项目文件材料下载</h4>
+      </div>
+      <div class="modal-body">
+           <div class="row" style="margin-left: 20px;">
+             <h4 class="col-md-4">
+              开题报告word文档
+            </h4>
+            <button class="btn btn-embossed btn-primary btn-sm" style="margin-top: 4px">文件下载</button>
+          </div>
+          <div class="row" style="margin-left: 20px;">
+             <h4 class="col-md-4">
+              论文材料word文档
+            </h4>
+            <button class="btn btn-embossed btn-primary btn-sm" style="margin-top: 4px">文件下载</button>
+          </div>
+          <div class="row" style="margin-left: 20px;">
+             <h4 class="col-md-4">
+              完整项目材料包
+            </h4>
+            <button class="btn btn-embossed btn-primary btn-sm" style="margin-top: 4px">文件下载</button>
+          </div>          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="~/Scripts/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="~/Scripts/ie10-viewport-bug-workaround.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Content/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="~/Scripts/ie-emulation-modes-warning.js"></script>
+</body>
+
+
+</html>
