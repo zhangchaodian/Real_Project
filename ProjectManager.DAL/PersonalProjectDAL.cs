@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace ProjectManager.DAL
 {
-    public class PersonalProjectDAL
+    public class PersonalProjectDAL1
     {
         #region 获取个人项目及信息页面的用户个人信息
         public User GetUserInfo(string ID)

@@ -24,9 +24,8 @@ namespace ProjectManager.Controllers
             string id=Request["user"];
             string pass=Request["pass"];
             string p_belongs=Request["p_belongs"];
-            Session["p_belongs"] = p_belongs.Equals("a") ? "科研项目管理系统" : "质量工程项目管理系统";
-            SessionHelper.Add("p_belongs",p_belongs);
-            SessionHelper.Add("ID",id);
+            Session["p_belongs"] =( p_belongs.Equals("a") ? "科研项目管理系统" : "质量工程项目管理系统");
+            
            
             int result= BLL.UserInfoServer.CheckLogin(id,pass);
            
@@ -40,15 +39,10 @@ namespace ProjectManager.Controllers
                 FormsAuthentication.SetAuthCookie(id, false);
                 BLL.UserInfoServer server = new BLL.UserInfoServer();
                 Model.User u = server.getUserInfo(id,pass);
-                 Session["userinfo"] = u;
-                
-                 SessionHelper.Add("user",u.nickname);
-               //a代表管理员 b用户
+               Session["userinfo"] = u;
+               ViewBag.p_belongs=(string)Session["p_belongs"];
 
-                    //SessionHelper.Add("user_type","教职工");
-                    //Session["u_type"] = "教职工";
-                    ViewBag.p_belongs=(string)Session["p_belongs"];
-                    return Redirect("/usermanager/");
+                return Redirect("/usermanager/");
                
             }
 
