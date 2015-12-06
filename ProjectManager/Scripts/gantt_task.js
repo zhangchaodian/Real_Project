@@ -1,7 +1,8 @@
 <!-- 甘特图js算法 -->
 // 记住这里定义构造函数的变量不是var而是this.  因为后面new一个对象，是把this指针赋给这个对象，如果是var,这些东西没有被this指针指向，找不到,var是局部变量所用，一般跟函数捆绑在一起
-    function gantt(){
-        this.data = [
+    function gantt(datas,stime,etime){
+        this.data = datas;
+   /*     this.data1 = [
             {
                 id : 1,
                 task : '任务1',
@@ -37,9 +38,9 @@
                 stime: ['2015','11','5'],
                 etime: ['2015','11','10'],
             }    
-        ];
-        this.stime = ['2015','11','1'];
-        this.etime = ['2015','12','28'];
+        ];*/
+        this.stime = stime;
+        this.etime = etime;
     };
     gantt.prototype = {
         constructor : gantt,
@@ -750,5 +751,4 @@
  
 
 
-    var gantt = new gantt();
-    gantt.init();
+    

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ProjectManager.Model;
 using System.Web.Services;
 using ProjectManager.Common;
+using ProjectManager.BLL;
 
 namespace ProjectManager.Controllers.User
 {
@@ -82,13 +83,7 @@ public ActionResult index()
         }
         #endregion
 
-        [Authorize]
-        public ActionResult Project_Schedule_Each()
-        {
-            ViewBag.user = User.Identity.Name;
-          
-            return View("Project_Schedule_Each");
-        }
+
         [Authorize]
         public ActionResult Project_Schedule()
         {
@@ -231,7 +226,7 @@ public ActionResult index()
         {
             ViewBag.user = User.Identity.Name;
 
-            EachProjectServer server = new EachProjectServer();
+            BLL.EachProjectServer server = new BLL.EachProjectServer();
             ViewBag.eachschedule = server.GetEachSchedule(ID);
             ViewBag.members = server.GetMember(ID);
             ViewBag.tasks = server.GetProject_task(ID);
@@ -240,21 +235,14 @@ public ActionResult index()
             return View("Project_Schedule_Each");
         }
         [Authorize]
-        public ActionResult Project_Schedule()
-        {
-            ViewBag.user = User.Identity.Name;
-            //List<Model.Project_Schedule_Model> s_model = new List<Project_Schedule_Model>();
-            // s_model = BLL.ProjectServer.getScheduleModel();
-            //ViewBag.s_model = s_model;
-            return View("Project_Schedule");
-        }
+
         [Authorize]
         public ActionResult Personal_Project(string keyword = "")
         {
             ViewBag.user = User.Identity.Name;
             Model.User userInfo = (Model.User)Session["userinfo"];
             ViewBag.userinfo = userInfo;
-            PersonalProjectServer server = new PersonalProjectServer();
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
             ViewBag.user = server.GetUserInfo(userInfo.ID);
             ViewBag.projects = server.GetUserProject(userInfo.ID, keyword);
             return View("Personal_Project");
@@ -266,7 +254,7 @@ public ActionResult index()
             string ID = userInfo.ID;
             string old_pwd = formvalues["OldPwd"];
             string new_pwd = formvalues["NewPwd"];
-            PersonalProjectServer server = new PersonalProjectServer();
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
             char result = server.UpdateUserPwd(ID, old_pwd, new_pwd);
             return Json(result);
         }
@@ -280,7 +268,7 @@ public ActionResult index()
             string position = formvalues["position"];
             string phone = formvalues["phone"];
             string email = formvalues["email"];
-            PersonalProjectServer server = new PersonalProjectServer();
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
             Boolean result = server.UpdateUseInfo(nickname, sex, position, phone, email, ID);
             return Json(result);
         }
@@ -289,7 +277,7 @@ public ActionResult index()
         public ActionResult ReturnProjectComment()
         {
             int project_id = Convert.ToInt32(Request.Params["project_id"]);
-            PersonalProjectServer server = new PersonalProjectServer();
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
             Comment comm = server.SelectProjectComment(project_id);
             return Json(comm.comment);
         }
@@ -298,7 +286,7 @@ public ActionResult index()
         public JsonResult ReturnTasksState(int ID)
         {
             //int newID = Convert.ToInt32(ID);
-            PersonalProjectServer server = new PersonalProjectServer();
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
             List<Project_Task> tasks = server.SelecTasksState(ID);
             //List<Project_Task> taskss = new List<Project_Task>();
             //Project_Task task1 = new Project_Task();
@@ -314,7 +302,7 @@ public ActionResult index()
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult UpdataTaskState(FormCollection formvalues)
         {
-            PersonalProjectServer server = new PersonalProjectServer();
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
             int sum = 0;
             int project_id = Convert.ToInt32(formvalues["Task_project_id"]);
             foreach (var key in formvalues.Keys)

@@ -46,11 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comment.cs" />
     <Compile Include="declareViewModel.cs" />
+    <Compile Include="EachSchedule.cs" />
     <Compile Include="Leader.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="Project_Achievement.cs" />
     <Compile Include="Project_Schedule.cs" />
+    <Compile Include="Project_Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="User.cs" />

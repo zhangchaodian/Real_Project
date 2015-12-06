@@ -244,6 +244,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ProjectManager.BLL\ProjectManager.BLL.csproj">
       <Project>{af6f662b-25b6-4cd3-943f-1498c9e6399f}</Project>
       <Name>ProjectManager.BLL</Name>
@@ -260,9 +263,6 @@
       <Project>{99661bdd-d9da-4f90-af90-b1c288887c58}</Project>
       <Name>ProjectManager.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeclareDAL.cs" />
+    <Compile Include="EachScheduleDAL.cs" />
+    <Compile Include="PersonalProjectDAL.cs" />
     <Compile Include="projectinfoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScheduleDAL.cs" />
@@ -64,17 +66,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectManager.Model\ProjectManager.Model.csproj">
-      <Project>{99661bdd-d9da-4f90-af90-b1c288887c58}</Project>
-      <Name>ProjectManager.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-1.8.3.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectManager.Model\ProjectManager.Model.csproj">
+      <Project>{99661bdd-d9da-4f90-af90-b1c288887c58}</Project>
+      <Name>ProjectManager.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
