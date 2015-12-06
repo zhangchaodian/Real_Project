@@ -41,20 +41,15 @@ namespace ProjectManager.Controllers
                 BLL.UserInfoServer server = new BLL.UserInfoServer();
                 Model.User u = server.getUserInfo(id,pass);
                  Session["userinfo"] = u;
+                
                  SessionHelper.Add("user",u.nickname);
                //a代表管理员 b用户
-                if (result == 0)
-                {
-                    SessionHelper.Add("user_type","教职工");
+
+                    //SessionHelper.Add("user_type","教职工");
                     //Session["u_type"] = "教职工";
+                    ViewBag.p_belongs=(string)Session["p_belongs"];
                     return Redirect("/usermanager/");
-                }
-                else
-                {
-                    SessionHelper.Add("Indentity","admin");
-                    Session["Identity"] = "admin";
-                    return Redirect("/usermanager");
-                }
+               
             }
 
         }
