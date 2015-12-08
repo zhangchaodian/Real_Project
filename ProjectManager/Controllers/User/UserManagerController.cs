@@ -7,6 +7,7 @@ using ProjectManager.Model;
 using System.Web.Services;
 using ProjectManager.Common;
 using ProjectManager.BLL;
+using System.IO;
 
 namespace ProjectManager.Controllers.User
 {
@@ -106,12 +107,7 @@ public ActionResult index()
             ViewBag.user = User.Identity.Name; 
             return View("Personal_Project_Abled");
         }
-        [Authorize]
-        public ActionResult Personal_Project_Disabled()
-        {
-            ViewBag.user = User.Identity.Name; 
-            return View("Personal_Project_Disabled");
-        }
+
 
         #region 完成申报功能
         [HttpPost]
@@ -312,6 +308,97 @@ public ActionResult index()
             }
             return Json(sum);
         } 
+        //更新材料
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UpdateProjectFile()
+        {
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
+            int project_id = Convert.ToInt32(Request.Params["project_id"]);
+            string project_name = Request.Params["project_name"];
+            HttpPostedFileBase paper_file=Request.Files["paper_file"];
+            HttpPostedFileBase report_file = Request.Files["report_file"];
+            HttpPostedFileBase whole_file = Request.Files["whole_file"];
+
+            short num = 0;
+            if (report_file.ContentLength > 0)
+            {
+                string report_file_path = "~/Upload/" + project_id + "/" + "report/" + report_file.FileName;
+                string old_report_file_path = server.SelectEachFile(project_id, "report_file");
+                if (System.IO.File.Exists(old_report_file_path)) System.IO.File.Delete(old_report_file_path);
+                if (server.UpdateEachFile(project_id, "report_file", report_file_path))
+                {
+                    Common.UpLoadServer.UploadFile(project_id, report_file, "report");
+                    num++;
+                }
+            }
+
+            if (paper_file.ContentLength > 0)
+            {
+                string paper_file_path = "~/Upload/" + project_id + "/" + "report/" + paper_file.FileName;
+                string old_paper_file_path = server.SelectEachFile(project_id, "paper_file");
+                if (System.IO.File.Exists(old_paper_file_path)) System.IO.File.Delete(old_paper_file_path);
+                if (server.UpdateEachFile(project_id, "paper_file", paper_file_path))
+                {
+                    Common.UpLoadServer.UploadFile(project_id, report_file, "paper");
+                    num++;
+                }
+            }
+
+            if (whole_file.ContentLength > 0)
+            {
+                string whole_file_path = "~/Upload/" + project_id + "/" + "report/" + whole_file.FileName;
+                string old_whole_file_path = server.SelectEachFile(project_id, "whole_pack_file");
+                if (System.IO.File.Exists(old_whole_file_path)) System.IO.File.Delete(old_whole_file_path);
+                if (server.UpdateEachFile(project_id, "whole_pack_file", whole_file_path))
+                {
+                    Common.UpLoadServer.UploadFile(project_id, whole_file, "wholefile");
+                    num++;
+                }
+            }
+
+            if (num > 0) server.UpdateProjectState(project_id);
+            TempData["message"] = project_name + "更新了" + num + "个文件材料";
+            return RedirectToAction("Personal_Project");
+
+        }
+
+        //取消申报
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult DeleteProject()
+        {
+            int project_id = Convert.ToInt32(Request.Params["project_id"]);
+            string project_name = Request.Params["project_name"];
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
+           
+            string old_whole_file_path = server.SelectEachFile(project_id, "whole_pack_file");
+            string old_paper_file_path = server.SelectEachFile(project_id, "paper_file");
+            string old_report_file_path = server.SelectEachFile(project_id, "report_file");
+            if (System.IO.File.Exists(old_whole_file_path)) System.IO.File.Delete(old_whole_file_path);
+            if (System.IO.File.Exists(old_paper_file_path)) System.IO.File.Delete(old_paper_file_path);
+            if (System.IO.File.Exists(old_report_file_path)) System.IO.File.Delete(old_report_file_path);
+            Boolean result = server.DeleteProject(project_id);
+            if (result) TempData["delete_info"] = project_name+"项目取消申报成功!";
+            else TempData["delete_info"] = project_name+"项目取消申报失败!";
+            return RedirectToAction("Personal_Project");
+        }
+
+        //此处开始是个人项目及信息点进去的详情页
+        [Authorize]
+        public ActionResult Personal_Project_Disabled(string ID)
+        {
+            int project_id = Convert.ToInt32(ID);
+            BLL.EachProjectServer server = new BLL.EachProjectServer();
+            ViewBag.eachschedule = server.GetEachSchedule(project_id);
+            ViewBag.members = server.GetMember(project_id);
+            ViewBag.tasks = server.GetProject_task(project_id);
+
+            BLL.PersonalProjectServer server1 = new BLL.PersonalProjectServer();
+            Comment comm = server1.SelectProjectComment(project_id);
+            ViewBag.comment = comm;
+
+
+            return View("Personal_Project_Disabled");
+        }
         #endregion
          
     }

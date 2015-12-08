@@ -214,5 +214,145 @@ namespace ProjectManager.DAL
         #endregion
 
 
+        #region 取出某个项目的文件材料
+        public string SelectEachFile(int ID,string File_Type)
+        {
+            SqlParameter[] para = { new SqlParameter("@ID", SqlDbType.Int) };
+            para[0].Value = ID;
+            string sql = "";
+            switch (File_Type)
+            {
+                case "report_file":
+                    sql = "select report_file from Project where ID = @ID";
+                    break;
+                case "paper_file":
+                    sql = "select paper_file from Project where ID = @ID";
+                    break;
+                case "whole_pack_file":
+                    sql = "select whole_pack_file from Project where ID = @ID";
+                    break;
+
+            }
+            DataTable da = SqlHelper.GetTable(sql, CommandType.Text, para);
+
+            string File_Path = da.Rows[0][File_Type].ToString();
+            return File_Path;
+        }
+        #endregion
+
+        #region 修改某个项目的文件材料并且修改文件材料了顺便级别回退到上一级
+        public Boolean UpdateEachFile(int ID, string File_Type, string File_Path)
+        {
+            Boolean result = false;
+            SqlParameter[] para = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+                                      new SqlParameter("@File_Path", SqlDbType.NVarChar,256),
+
+                                  };
+            para[0].Value = ID;
+            para[1].Value = File_Path;
+
+            string sql = "";
+            switch (File_Type)
+            {
+                case "report_file":
+                    sql = "update Project set report_file = @File_Path where ID = @ID";
+                    break;
+                case "paper_file":
+                    sql = "update Project set paper_file = @File_Path where ID = @ID";
+                    break;
+                case "whole_pack_file":
+                    sql = "update Project set whole_pack_file = @File_Path where ID = @ID";
+                    break;
+            }
+            int Update_result = SqlHelper.ExecuteNonquery(sql, CommandType.Text, para);
+            if (Update_result != 0) result = true;
+            return result;
+        }
+
+        //修改文件材料了顺便级别回退到上一级
+        public Boolean UpdateProjectState(int ID)
+        {
+            Boolean result = false;
+            SqlParameter[] para = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+
+                                  };
+            para[0].Value = ID;
+            //字符降级
+            string select_sql = "select state from Project where ID = @ID";
+            DataTable da = SqlHelper.GetTable(select_sql, CommandType.Text, para);
+            char state = Convert.ToChar(da.Rows[0]["state"]);
+            char new_state = Convert.ToChar(state - 1);
+
+            SqlParameter[] para1 = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+                                      new SqlParameter("@state", SqlDbType.Char),
+
+                                  };
+            para1[0].Value = ID;
+            para1[1].Value = new_state;
+            string update_sql = "Update Project set state = @state where ID=@ID";
+            int Update_result = SqlHelper.ExecuteNonquery(update_sql, CommandType.Text, para1);
+            if (Update_result != 0) result = true;
+            return result;
+
+        }
+        #endregion
+
+
+        #region 取消申报也即删除该项目
+        public Boolean DeleteProject(int ID)
+        {
+            Boolean result = false;
+            SqlParameter[] para1 = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+
+                                  };
+            para1[0].Value = ID;
+            string sql1 = "Delete from Leader where Leader.project_id = @ID";
+            int delete_update1 = SqlHelper.ExecuteNonquery(sql1, CommandType.Text, para1);
+
+            SqlParameter[] para2 = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+
+                                  };
+            para2[0].Value = ID;
+            string sql2 = "Delete from Task where Task.project_id = @ID";
+            int delete_update2 = SqlHelper.ExecuteNonquery(sql2, CommandType.Text, para2);
+
+            SqlParameter[] para3 = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+
+                                  };
+            para3[0].Value = ID;
+            string sql3 = "Delete from Member where Member.project_id = @ID";
+            int delete_update3 = SqlHelper.ExecuteNonquery(sql3, CommandType.Text, para3);
+
+            SqlParameter[] para4 = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+
+                                  };
+            para4[0].Value = ID;
+            string sql4 = "Delete from Comment where Comment.project_id = @ID";
+            int delete_update4 = SqlHelper.ExecuteNonquery(sql4, CommandType.Text, para4);
+
+            SqlParameter[] para5 = { 
+                                      new SqlParameter("@ID", SqlDbType.Int),
+
+                                  };
+            para5[0].Value = ID;
+            string sql5 = "Delete from Project Where ID = @ID";
+            int delete_update5 = SqlHelper.ExecuteNonquery(sql5, CommandType.Text, para5);
+
+            if (delete_update1 != 0 && delete_update2 != 0 && delete_update3 != 0 && delete_update4!= 0 && delete_update5 != 0) result = true;
+            return result;
+
+        }
+        #endregion
+
+
+        #region 个人项目以及信息的详情页取出数据
+        #endregion
     }
 }

@@ -93,6 +93,8 @@ namespace ProjectManager.DAL
             EachInfo.end_y = row["end_y"].ToString();
             EachInfo.end_m = row["end_m"].ToString();
             EachInfo.end_d = row["end_d"].ToString();
+            EachInfo.money = Convert.ToDouble(row["money"].ToString());
+            EachInfo.type = row["type"].ToString();
             return EachInfo;
         }
 
@@ -116,6 +118,8 @@ namespace ProjectManager.DAL
             project_task.end_d = row["end_d"].ToString();
             project_task.task = row["task"].ToString();
             project_task.state = row["state"].ToString();
+            project_task.end_time = row["end_time"].ToString();
+            project_task.start_time = row["start_time"].ToString();
             return project_task;
         }
         #endregion
