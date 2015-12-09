@@ -6,17 +6,18 @@
             var value = parseInt($(this).text().trim());
             var num = 0;
             // console.log(value);
+            
+            num_add();
+            var interval = setInterval(num_add,3);
             function num_add(){
                 if(num==value){
-                    clearInterval();
+                    clearInterval(interval);
                 }
                 else{
                     num++;
                     $(that).text(num+"%");
                 }            
             }
-            num_add();
-            setInterval(num_add,3);
             $(this).animate({
                 width : value+"%",
             },

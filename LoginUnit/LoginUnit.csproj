@@ -58,6 +58,22 @@
       <Project>{af6f662b-25b6-4cd3-943f-1498c9e6399f}</Project>
       <Name>ProjectManager.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectManager.Common\ProjectManager.Common.csproj">
+      <Project>{78b4a2c5-f3af-4444-8b6c-65e23196b237}</Project>
+      <Name>ProjectManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectManager.DAL\ProjectManager.DAL.csproj">
+      <Project>{60dfbf69-56fd-4fc9-ae50-577f95557551}</Project>
+      <Name>ProjectManager.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectManager.Model\ProjectManager.Model.csproj">
+      <Project>{99661bdd-d9da-4f90-af90-b1c288887c58}</Project>
+      <Name>ProjectManager.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectManager\ProjectManager.csproj">
+      <Project>{9316e768-430c-4ec4-9ceb-caaf730b13a8}</Project>
+      <Name>ProjectManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

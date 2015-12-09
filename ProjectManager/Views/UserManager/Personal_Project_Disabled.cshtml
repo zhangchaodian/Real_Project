@@ -240,16 +240,25 @@
                       <div class="row">
                           <div class="col-md-2 col-sm-2 col-xs-2"></div>
                          <div class="col-md-3 col-sm-3 col-xs-3">
-                          <h4>开题报告文档</h4>
-                            <button type="button" class="btn btn-primary">文件下载</button>
+                             <form action="/UserManager/DownloadFile">
+                                  <h4>开题报告文档</h4>
+                                 <input type="hidden" name="File_Path" value="@ViewBag.eachschedule.report_file"/>
+                                    <a role="button" class="btn btn-primary download_file_button" href="/UserManager/DownloadFile/@ViewBag.eachschedule.ID/report_file" target="_blank">文件下载</a>
+                             </form>
                          </div>
                          <div class="col-md-3 col-sm-3 col-xs-3">
-                          <h4>论文材料文档</h4>
-                            <button type="button" class="btn btn-primary">文件下载</button>
+                          <form action="/UserManager/DownloadFile">
+                                  <h4>论文材料文档</h4>
+                                 <input type="hidden" name="File_Path" value="@ViewBag.eachschedule.paper_file"/>
+                                    <a role="button" class="btn btn-primary download_file_button" href="/UserManager/DownloadFile/@ViewBag.eachschedule.ID/paper_file" target="_blank">文件下载</a>
+                             </form>
                          </div>
                          <div class="col-md-3 col-sm-3 col-xs-3">
-                          <h4>项目完整材料</h4>
-                            <button type="button" class="btn btn-primary">文件下载</button>
+                            <form action="/UserManager/DownloadFile">
+                                  <h4>项目完整材料</h4>
+                                 <input type="hidden" name="File_Path" value="@ViewBag.eachschedule.whole_pack_file"/>
+                                    <a role="button" class="btn btn-primary download_file_button" href="/UserManager/DownloadFile/@ViewBag.eachschedule.ID/whole_pack_file" target="_blank">文件下载</a>
+                             </form>
                          </div>   
                       </div>
                     </div>
@@ -328,7 +337,15 @@
 <script src="~/Scripts/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="~/Scripts/ie10-viewport-bug-workaround.js"></script>
+@*<script type="text/javascript">
+    (function () {
+        $(".download_file_button").each(function () {
+            $(this).click(function () {
 
+            });
+        });
+    })();
+</script>*@
 </body>
 
 

@@ -352,7 +352,7 @@ namespace ProjectManager.DAL
         #endregion
 
 
-        #region 个人项目以及信息的详情页取出数据
+        #region 
         #endregion
     }
 }

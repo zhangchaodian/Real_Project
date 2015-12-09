@@ -397,7 +397,33 @@ public ActionResult index()
             ViewBag.comment = comm;
 
 
+
+
             return View("Personal_Project_Disabled");
+        }
+        //文件下载
+        [HttpGet]
+        public void DownloadFile()
+        {
+            int project_id = Convert.ToInt32(RouteData.Values["id"]);
+            string File_Type = RouteData.Values["plus"].ToString();
+            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
+            string File_Path = server.SelectEachFile(project_id, File_Type);
+            string[] File_Path_Array= File_Path.Split('/');
+            string file_typee = "";
+            switch (File_Type)
+            {
+                case "report_file":
+                    file_typee = "report";
+                    break;
+                case "paper_file":
+                    file_typee = "paper";
+                    break;
+                case "whole_pack_file":
+                    file_typee = "wholefile";
+                    break;
+            }
+            Common.DownloadServer.WriteFile(project_id,file_typee,File_Path_Array[4]);
         }
         #endregion
          

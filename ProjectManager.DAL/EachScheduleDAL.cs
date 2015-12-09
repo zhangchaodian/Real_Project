@@ -77,6 +77,7 @@ namespace ProjectManager.DAL
         #region 三个实体实例化注入属性值方法
         public EachSchedule LoadEachEntity(EachSchedule EachInfo, DataRow row)
         {
+            EachInfo.ID = Convert.ToInt32(row["ID"].ToString());
             EachInfo.name = row["name"].ToString();
             EachInfo.now_level = row["now_level"].ToString();
             EachInfo.target_level = row["target_level"].ToString();
@@ -95,6 +96,9 @@ namespace ProjectManager.DAL
             EachInfo.end_d = row["end_d"].ToString();
             EachInfo.money = Convert.ToDouble(row["money"].ToString());
             EachInfo.type = row["type"].ToString();
+            EachInfo.report_file = row["report_file"].ToString();
+            EachInfo.paper_file = row["paper_file"].ToString();
+            EachInfo.whole_pack_file = row["whole_pack_file"].ToString();
             return EachInfo;
         }
 
