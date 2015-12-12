@@ -23,16 +23,24 @@ namespace ProjectManager.Controllers
         {
             string id=Request["user"];
             string pass=Request["pass"];
-            string p_belongs=Request["p_belongs"];
-            Session["p_belongs"] =( p_belongs.Equals("a") ? "科研项目管理系统" : "质量工程项目管理系统");
-            
+            Session["p_belongs"]=Request["p_belongs"];
+            switch(Session["p_belongs"].ToString()){
+                case "a":
+                    TempData["belongs_name"] = "科研";
+                    break;
+                case "b":
+                    TempData["belongs_name"] = "质量工程";
+                    break;
+            }
            
             int result= BLL.UserInfoServer.CheckLogin(id,pass);
            
 
             if (result < 0)
             {
-                return Content("登录失败！");
+                Response.Write("<script>alert('登录失败，用户名不存在或密码错误！');</script>");
+                return View("index");
+               
             }
             else
             {

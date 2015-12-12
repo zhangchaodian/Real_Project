@@ -3,7 +3,7 @@
 
 @{
     List<Project_Achievement> project = (List<Project_Achievement>)ViewBag.project;
-    string Title =(string)Session["p_belongs"];
+    string Title = (string)ViewBag.title;
 }
 <!DOCTYPE html>
 <html>
@@ -32,16 +32,17 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
-            <a class="navbar-brand" href="#">@Title</a>
+            <a class="navbar-brand" href="#">@(Title)项目管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="header-span">身份:</span></li>
-                <li><span class="header-span">账号:</span></li>
-                <li><span class="header-span">姓名:</span></li>
+               <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
+                <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
                 @{
-                    if(ViewBag.Identity=="admin"){
-                <li><a href="../admin/User_Manage">管理入口</a></li>
+                    if (@ViewBag.userInfo.type!="a")
+                    {
+                <li><a href="~/Admin">管理入口</a></li>
                 }
                 }
                 <li><a href="~/Login/Logout">返回登录界面</a></li>
@@ -55,9 +56,9 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="~/UserManager/">科研项目成果 <span class="sr-only">(current)</span></a></li>
-                <li><a href="~/UserManager/Project_Schedule">科研项目进度</a></li>
-                <li><a href="~/UserManager/Project_Declare">科研项目申报</a></li>
+                <li class="active"><a href="~/UserManager/">@(Title)项目成果 <span class="sr-only">(current)</span></a></li>
+                <li><a href="~/UserManager/Project_Schedule">@(Title)项目进度</a></li>
+                <li><a href="~/UserManager/Project_Declare">@(Title)项目申报</a></li>
                 <li><a href="~/UserManager/Personal_Project">个人项目及信息</a></li>
             </ul>
 
@@ -74,7 +75,7 @@
                         <div class="form-group">
                             <select class="form-control" name="updownorder2">
                                 <optgroup label="级别">
-                                    <option value="asc">级别(全部)</option>
+                                    <option value="all">级别(全部)</option>
                                     <option value="市级">市级</option>
                                     <option value="省级">省级</option>
                                     <option value="国家级">国家级</option>

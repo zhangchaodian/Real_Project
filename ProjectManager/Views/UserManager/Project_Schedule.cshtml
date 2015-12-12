@@ -1,6 +1,11 @@
 ﻿@using ProjectManager.Model
 @{
 List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
+
+}
+@{
+  
+    string Title = (string)ViewBag.title;
 }
 <!DOCTYPE html>
 <html>
@@ -26,15 +31,20 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                 <span class="icon-bar"></span>
             </button>
             <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
-            <a class="navbar-brand" href="#">科研项目管理系统</a>
+            <a class="navbar-brand" href="#">@Title</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="header-span">身份:管理员</span></li>
-                <li><span class="header-span">账号:20131003616</span></li>
-                <li><span class="header-span">姓名:王小明</span></li>
-                <li><a href="../admin/Users_Manage.html">管理入口</a></li>
-                <li><a href="../index.html">返回登录界面</a></li>
+               <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
+                <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
+                 @{
+                    if (@ViewBag.userInfo.type!="a")
+                    {
+                <li><a href="~/Admin">管理入口</a></li>
+                }
+                }
+                <li><a href="~/Login/Logout">返回登录界面</a></li>
             </ul>
 
         </div>
@@ -45,9 +55,9 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="~/UserManager/">科研项目成果 <span class="sr-only">(current)</span></a></li>
-                <li class="active"><a href="~/UserManager/Project_Schedule">科研项目进度</a></li>
-                <li><a href="~/UserManager/Project_Declare">科研项目申报</a></li>
+                <li ><a href="~/UserManager/">@(Title)项目成果 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="~/UserManager/Project_Schedule">@(Title)项目进度</a></li>
+                <li><a href="~/UserManager/Project_Declare">@(Title)项目申报</a></li>
                 <li><a href="~/UserManager/Personal_Project">个人项目及信息</a></li>
             </ul>
         </div>
@@ -58,11 +68,11 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
             <h2 class="sub-header">科研项目进度</h2>
             <div class="row search_header">
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                     <form class="form-inline" style="float: left" action="UserManager/GetSearch_Schedule " method="post" id="form2">
+                     <form class="form-inline" style="float: left" action="~/UserManager/GetSearch_Schedule " method="post" id="form2">
                         <div class="form-group">
                             <select class="form-control" name="updownorder2">
                                 <optgroup label="级别">
-                                    <option value="asc">目标级别(全部)</option>
+                                    <option value="all">目标级别(全部)</option>
                                     <option value="市级">市级</option>
                                     <option value="省级">省级</option>
                                     <option value="国家级">国家级</option>
@@ -80,12 +90,12 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                                     <option value="desc">降序</option>
                                 </optgroup>
                             </select>
-                            <button class="btn btn-embossed btn-primary" id="btn2" type="button">查询</button>
+                            <button class="btn btn-embossed btn-primary" id="btn3" type="button">查询</button>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                     <form class="form-inline" style="float:left" id="form3" method="post" action="UserManager/getSearch_Schedule2">
+                     <form class="form-inline" style="float:left" id="form3" method="post" action="~/UserManager/getSearch_Schedule2">
                         <select class="form-control" name="updownorder1">
                             <optgroup label="关键字类型">
                                 <option value="p_type" selected>课题类型</option>
@@ -95,7 +105,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                             </optgroup>
                         </select>
                         <input type="text" class="form-control" placeholder="输入关键字" name="updownorder2">
-                        <button class="btn btn-embossed btn-primary" id="btn3">搜索</button>
+                        <button class="btn btn-embossed btn-primary" id="btn4">搜索</button>
                     </form>
                 </div>
             </div>
@@ -134,7 +144,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                     <td>@project.target_level</td>
                     <td>@project.create_time</td>
                     
-                    <td><a href="~/UserManager/Project_Schedule_Each"><button class="btn btn-embossed btn-primary btn-sm">详情</button></a></td>
+                    <td><a href="~/UserManager/Project_Schedule_Each/@project.p_id"><button class="btn btn-embossed btn-primary btn-sm">详情</button></a></td>
                 </tr>
                     }
                         }
@@ -186,7 +196,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
 
 <script src="~/Scripts/progress_move.js"></script>
 <script src="~/Scripts/Home_ProjectSchedule.js"></script>
-<script src="~/Scripts/Search.js"></script>
+<script src="~/Scripts/Search_Schedule.js"></script>
 </body>
 
 

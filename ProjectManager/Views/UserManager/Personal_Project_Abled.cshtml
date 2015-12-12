@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string Title = (string)ViewBag.title;
+}
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -23,15 +26,20 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
-            <a class="navbar-brand" href="#">科研项目管理系统</a>
+            <a class="navbar-brand" href="#">@(Title)项目管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="header-span">身份:管理员</span></li>
-                <li><span class="header-span">账号:20131003616</span></li>
-                <li><span class="header-span">姓名:王小明</span></li>
-                <li><a href="../admin/Users_Manage.html">管理入口</a></li>
-                <li><a href="../index.html">返回登录界面</a></li>
+                <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
+                <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
+                @{
+                    if (@ViewBag.userInfo.type!="a")
+                    {
+                <li><a href="~/Admin">管理入口</a></li>
+                }
+                }
+                <li><a href="~/Login/Logout">返回登录界面</a></li>
             </ul>
 
         </div>
@@ -42,9 +50,9 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="~/UserManager/">科研项目成果 <span class="sr-only">(current)</span></a></li>
-                <li><a href="~/UserManager/Project_Schedule">科研项目进度</a></li>
-                <li><a href="~/UserManager/Project_Declare">科研项目申报</a></li>
+                 <li ><a href="~/UserManager/">@(Title)项目成果 <span class="sr-only">(current)</span></a></li>
+                <li><a href="~/UserManager/Project_Schedule">@(Title)项目进度</a></li>
+                <li><a href="~/UserManager/Project_Declare">@(Title)项目申报</a></li>
                 <li class="active"><a href="~/UserManager/Personal_Project">个人项目及信息</a></li>
             </ul>
         </div>
