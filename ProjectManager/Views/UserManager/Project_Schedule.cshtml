@@ -1,0 +1,193 @@
+﻿@using ProjectManager.Model
+@{
+List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Header.css">
+    <link rel="stylesheet" href="~/Content/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="icon" href="~/img/favicon.ico">
+    <link href="~/Content/dashboard.css" rel="stylesheet">
+    
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
+            <a class="navbar-brand" href="#">科研项目管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><span class="header-span">身份:管理员</span></li>
+                <li><span class="header-span">账号:20131003616</span></li>
+                <li><span class="header-span">姓名:王小明</span></li>
+                <li><a href="../admin/Users_Manage.html">管理入口</a></li>
+                <li><a href="../index.html">返回登录界面</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="~/UserManager/">科研项目成果 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="~/UserManager/Project_Schedule">科研项目进度</a></li>
+                <li><a href="~/UserManager/Project_Declare">科研项目申报</a></li>
+                <li><a href="~/UserManager/Personal_Project">个人项目及信息</a></li>
+            </ul>
+        </div>
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+            <h2 class="sub-header">科研项目进度</h2>
+            <div class="row search_header">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                     <form class="form-inline" style="float: left" action="UserManager/GetSearch_Schedule " method="post" id="form2">
+                        <div class="form-group">
+                            <select class="form-control" name="updownorder2">
+                                <optgroup label="级别">
+                                    <option value="all">目标级别(全部)</option>
+                                    <option value="市级">市级</option>
+                                    <option value="省级">省级</option>
+                                    <option value="国家级">国家级</option>
+                                </optgroup>
+                            </select>
+                            <select class="form-control" name="updownorder4">
+                                <optgroup label="按排序类别">
+                                    <option value="plan_closing_time">按更新时间</option>
+                                    <option value="p_id">按编号</option>
+                                </optgroup>
+                            </select>
+                            <select class="form-control" name="updownorder5">
+                                <optgroup label="排序">
+                                    <option value="asc">升序</option>
+                                    <option value="desc">降序</option>
+                                </optgroup>
+                            </select>
+                            <button class="btn btn-embossed btn-primary" id="btn3" type="button">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                     <form class="form-inline" style="float:left" id="form3" method="post" action="UserManager/getSearch_Schedule2">
+                        <select class="form-control" name="updownorder1">
+                            <optgroup label="关键字类型">
+                                <option value="p_type" selected>课题类型</option>
+                                <option value="p_name">申报项目名称</option>
+                                <option value="st_name">负责人</option>
+                                <option value="declarant">申报人</option>
+                            </optgroup>
+                        </select>
+                        <input type="text" class="form-control" placeholder="输入关键字" name="updownorder2">
+                        <button class="btn btn-embossed btn-primary" id="btn4">搜索</button>
+                    </form>
+                </div>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>申报项目名称</th>
+                    <th>课题类型</th>
+                    <th>申报通过的项目进度</th>
+                    <th>申报人</th>
+                    <th>负责人</th>
+                    <th>目标级别</th>
+                    <th>申报时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="b2">
+                    @{
+                        foreach(Project_Schedule project in s_model){
+                <tr class="table_tbody_tr">
+                    <input type="hidden" name="stime" value="@project.s_time">
+                    <input type="hidden" name="etime" value="@project.f_time'">
+                    <input type="hidden" name="per_num" value="@project.schedule">
+                    <td>@project.p_id</td>
+                    <td>@project.p_name</td>
+                    <td>@project.p_type</td>
+                    <td><div class="progress">
+  <div class="progress-bar progress-bar-striped active progress_move" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: 2em;">
+      @project.schedule
+  </div>
+</div></td>
+                    <td>@project.declarant</td>
+                    <td>@project.leader.nickname</td>
+                    <td>@project.target_level</td>
+                    <td>@project.create_time</td>
+                    
+                    <td><a href="~/UserManager/Project_Schedule_Each/@project.p_id"><button class="btn btn-embossed btn-primary btn-sm">详情</button></a></td>
+                </tr>
+                    }
+                        }
+                
+                </tbody>
+            </table>
+
+
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-info">
+                  <span class="col-md-4 col-sm-3 col-xs-3">
+                    <div class="progress" >
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                    </div>
+                  </div>
+                  </span>
+                  <span>以上蓝色进度条表示当前时间进度未超过该项目的所有任务完成进度，进度把持不错</span>
+              </li>
+              <li class="list-group-item list-group-item-warning">
+                  <span class="col-md-4 col-sm-3 col-xs-3">
+                    <div class="progress" >
+                    <div class="progress-bar progress-bar-striped active progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                    </div>
+                  </div>
+                  </span>
+                  <span>以上黄色进度条表示当前时间进度已超过该项目的任务完成进度，进度把持失调</span>
+              </li>
+              <li class="list-group-item list-group-item-danger">
+                  <span class="col-md-4 col-sm-3 col-xs-3">
+                    <div class="progress" >
+                    <div class="progress-bar progress-bar-striped active progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                    </div>
+                  </div>
+                  </span>
+                  <span>以上红色进度条表示该项目所有任务还未完成，当前时间就已经超过该项目的规定结束时间，进度拖延</span>
+              </li>
+             </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Content/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="~/Scripts/ie-emulation-modes-warning.js"></script>
+<script src="~/Scripts/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="~/Scripts/ie10-viewport-bug-workaround.js"></script>
+
+<script src="~/Scripts/progress_move.js"></script>
+<script src="~/Scripts/Home_ProjectSchedule.js"></script>
+<script src="~/Scripts/Search_Schedule.js"></script>
+</body>
+
+
+</html>
