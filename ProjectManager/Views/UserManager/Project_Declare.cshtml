@@ -1,6 +1,8 @@
-﻿@{
-    
-    }
+﻿@using ProjectManager.Model
+@{
+    User userInfo = (User)ViewBag.userInfo;
+    string Title = (string)ViewBag.title;
+}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -16,7 +18,6 @@
 
 </head>
 <body>
-    <h1 id="sign" hidden="hidden">a</h1>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -28,15 +29,20 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
-            <a class="navbar-brand" href="#">科研项目管理系统</a>
+          <a class="navbar-brand" href="#">@(Title)项目管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="header-span">身份:管理员</span></li>
-                <li><span class="header-span">账号:20131003616</span></li>
-                <li><span class="header-span">姓名:王小明</span></li>
-                <li><a href="../admin/Users_Manage.html">管理入口</a></li>
-                <li><a href="../index.html">返回登录界面</a></li>
+                <li><span class="header-span">身份:@userInfo.type</span></li>
+                <li><span class="header-span">账号:@userInfo.ID</span></li>
+                <li><span class="header-span">姓名:@userInfo.nickname</span></li>
+                @{
+                    if (@userInfo.type!="a")
+                    {
+                <li><a href="~/Admin">管理入口</a></li>
+                }
+                }
+                <li><a href="~/Login/Logout">返回登录界面</a></li>
             </ul>
 
         </div>
@@ -48,9 +54,9 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-              <li><a href="~/UserManager/">科研项目成果 <span class="sr-only">(current)</span></a></li>
-                <li><a href="~/UserManager/Project_Schedule">科研项目进度</a></li>
-                <li class="active"><a href="~/UserManager/Project_Declare">科研项目申报</a></li>
+              <li ><a href="~/UserManager/">@(Title)项目成果 <span class="sr-only">(current)</span></a></li>
+                <li><a href="~/UserManager/Project_Schedule">@(Title)项目进度</a></li>
+                <li class="active"><a href="~/UserManager/Project_Declare">@(Title)项目申报</a></li>
                 <li><a href="~/UserManager/Personal_Project">个人项目及信息</a></li>
             </ul>
         </div>
@@ -60,7 +66,7 @@
             <h2 class="sub-header">科研项目申报</h2>
 
 
-            <div class="col-md-11 col-sm-11" id="@ViewBag.success">
+            <div class="col-md-11 col-sm-11">
                 <form class="form-horizontal" role="form" action="~/UserManager/getDeclareInfo" method="post" enctype="multipart/form-data">
                   <div id="form_container_first">
                    <h3 style="margin-bottom: 25px">第一步:项目基本资料填录</h3>
@@ -475,7 +481,6 @@
                             <div class="col-xs-7 col-sm-8 col-md-7">
                               <button  type="button" class="btn btn-primary" id="third_prev_button">上一步</button>
                               <button type="submit" class="btn btn-primary" id="submit">提交申报</button>
-                                
                             </div> 
                           </div>
                    </div>
@@ -491,7 +496,7 @@
     </div>
 </div>
 
-      
+
 <script src="~/Scripts/jquery.min.js"></script>
 <script src="~/Content/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="~/Scripts/ie-emulation-modes-warning.js"></script>
@@ -552,7 +557,6 @@
 <!-- 引入申报页面dom操作 -->
 <script src="~/Scripts/declare_move.js"></script>
 <script src="~/Scripts/Home_Project_Declare.js"></script>
-  
 </body>
 
 

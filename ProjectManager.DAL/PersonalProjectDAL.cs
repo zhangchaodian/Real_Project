@@ -215,7 +215,7 @@ namespace ProjectManager.DAL
 
 
         #region 取出某个项目的文件材料
-        public string SelectEachFile(int ID, string File_Type)
+        public string SelectEachFile(int ID,string File_Type)
         {
             SqlParameter[] para = { new SqlParameter("@ID", SqlDbType.Int) };
             para[0].Value = ID;
@@ -345,14 +345,14 @@ namespace ProjectManager.DAL
             string sql5 = "Delete from Project Where ID = @ID";
             int delete_update5 = SqlHelper.ExecuteNonquery(sql5, CommandType.Text, para5);
 
-            if (delete_update1 != 0 && delete_update2 != 0 && delete_update3 != 0 && delete_update4 != 0 && delete_update5 != 0) result = true;
+            if (delete_update1 != 0 && delete_update2 != 0 && delete_update3 != 0 && delete_update4!= 0 && delete_update5 != 0) result = true;
             return result;
 
         }
         #endregion
 
 
-        #region
+        #region 
         #endregion
     }
 }

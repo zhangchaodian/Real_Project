@@ -40,7 +40,6 @@ namespace ProjectManager.DAL
           userInfo.belongs=row["belongs"].ToString();
           userInfo.position = row["position"].ToString();
           userInfo.type = row["type"].ToString();
-          userInfo.pwd = row["pwd"].ToString();
           
 
       }
@@ -50,7 +49,6 @@ namespace ProjectManager.DAL
           UserInfoDAL user = new UserInfoDAL();
           return user.GetUserInfo(username, password);
       }
-
       public bool addUser(User user)
       {
           string sql = "insert into [UserInfo] (ID,pwd,nickname,sex,position,email,phone,type) values(@ID,@pwd,@nickname,@sex,@position,@email,@phone,@type)";
@@ -74,7 +72,7 @@ namespace ProjectManager.DAL
           pars[6].Value = user.phone;
           pars[7].Value = user.type;
 
-          int flag = SqlHelper.ExecuteNonquery(sql,CommandType.Text,pars);
+          int flag = SqlHelper.ExecuteNonquery(sql, CommandType.Text, pars);
           if (flag > 0)
               return true;
           else
@@ -85,21 +83,21 @@ namespace ProjectManager.DAL
       public User getUser(string userID)
       {
           string sql = "select * from [UserInfo] where ID=@userID";
-          SqlParameter []pars={
+          SqlParameter[] pars ={
                               new SqlParameter("@userID",SqlDbType.NVarChar,30)
           };
           pars[0].Value = userID;
-          DataTable da = SqlHelper.GetTable(sql,CommandType.Text,pars);
+          DataTable da = SqlHelper.GetTable(sql, CommandType.Text, pars);
           User userInfo = null;
           if (da.Rows.Count > 0)
           {
               userInfo = new User();
-              LoadEntity(userInfo, da.Rows[0]); 
+              LoadEntity(userInfo, da.Rows[0]);
               return userInfo;
           }
-         
+
           else
-          return null;
+              return null;
 
       }
       public bool modifyUser(User user)

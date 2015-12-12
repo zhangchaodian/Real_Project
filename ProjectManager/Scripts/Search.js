@@ -15,9 +15,9 @@ $(function () {
                 $("#b1").empty();
                 $("#b1").html(response);
             },
-             error: function ErrorCallback(XMLHttpRequest, textStatus, errorThrown) {
-                         alert(errorThrown + ":" + textStatus);
-                     },
+             // error: function ErrorCallback(XMLHttpRequest, textStatus, errorThrown) {
+             //             alert(errorThrown + ":" + textStatus);
+             //         },
 
 
         });
@@ -69,9 +69,9 @@ $(function(){
                        $("#s_time").html(message.s_time);
                        $("#f_time").html(message.f_time);
                      },
-                     error: function ErrorCallback(XMLHttpRequest, textStatus, errorThrown) {
-                         alert(errorThrown + ":" + textStatus);
-                     }
+                     // error: function ErrorCallback(XMLHttpRequest, textStatus, errorThrown) {
+                     //     alert(errorThrown + ":" + textStatus);
+                     // }
                  });
            $("#myModal_ShowDetail").modal({});
                  return false;

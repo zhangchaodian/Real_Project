@@ -141,11 +141,11 @@ namespace ProjectManager.BLL
         #endregion
 
         #region 添加用户
-        public static bool addUser(User  u)
+        public static bool addUser(User u)
         {
             DAL.UserInfoDAL add = new DAL.UserInfoDAL();
             return add.addUser(u);
-            
+
         }
         #endregion
 
@@ -153,15 +153,15 @@ namespace ProjectManager.BLL
         public static string getInfo(string userID)
         {
             DAL.UserInfoDAL modify = new DAL.UserInfoDAL();
-            User user= modify.getUser(userID);
-            string str0=user.ID;
-            string str1=user.pwd;
-            string str2=user.nickname;
-            string str3=user.position;
-            string str4=user.email;
-            string str5=user.phone;
-            string str6=user.sex;
-            string str7=user.type;
+            User user = modify.getUser(userID);
+            string str0 = user.ID;
+            string str1 = user.pwd;
+            string str2 = user.nickname;
+            string str3 = user.position;
+            string str4 = user.email;
+            string str5 = user.phone;
+            string str6 = user.sex;
+            string str7 = user.type;
             string htmlstr = string.Format("{{ \"ID\": \"{0}\", \"pwd\": \"{1}\", \"nickname\": \"{2}\", \"position\": \"{3}\", \"email\": \"{4}\", \"phone\": \"{5}\", \"sex\": \"{6}\", \"type\": \"{7}\"}}", str0, str1, str2, str3, str4, str5, str6, str7);
 
             return htmlstr;
@@ -186,14 +186,15 @@ namespace ProjectManager.BLL
                 return "用户信息删除失败！";
         }
 
-        public static List<Model.Project> getSelectProject(List<Model.Project> project,string now_level,string target_level,string state,string order){
+        public static List<Model.Project> getSelectProject(List<Model.Project> project, string now_level, string target_level, string state, string order)
+        {
             DAL.projectinfoDAL dal = new DAL.projectinfoDAL();
-            return dal.selectProject(project, now_level,target_level, state, order);
+            return dal.selectProject(project, now_level, target_level, state, order);
         }
         public static List<Model.Project> getprojectTypeSelect(List<Model.Project> project, string keytype, string keyword)
         {
             DAL.projectinfoDAL dal = new DAL.projectinfoDAL();
-            return dal.selectTypePorject(project,keytype,keyword);
+            return dal.selectTypePorject(project, keytype, keyword);
         }
     }
 }

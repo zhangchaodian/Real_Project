@@ -14,5 +14,16 @@ namespace LoginUnit
            int expected = 0;
            Assert.AreEqual(result, expected);
         }
+        [TestMethod]
+        public void TestMethod0()
+        {
+            PersonalProjectServer server = new PersonalProjectServer();
+            string result = server.SelectEachFile(3,"report_file");
+
+            string[] actual = result.Split('/');
+            string expected = "adsa";
+
+            Assert.AreEqual(expected, actual[4]);
+        }
     }
 }

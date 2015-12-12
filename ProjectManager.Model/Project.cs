@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManager.Model
 {
-   public class Project
+    public class Project
     {
         public int p_id { get; set; }
         public string p_name { get; set; }
@@ -23,5 +23,5 @@ namespace ProjectManager.Model
         public string whole_pack_file { get; set; }
         public string comment { get; set; }
     }
-     
+
 }

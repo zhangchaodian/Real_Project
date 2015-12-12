@@ -2,6 +2,7 @@
 @{
     User  user=(User)ViewBag.userinfo;
     List<User> userList = (List<User>)Model;
+    string Title = (string)ViewBag.title;
     }
 <!DOCTYPE html>
 <html>
@@ -37,15 +38,15 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
-            <a class="navbar-brand" href="#">科研项目管理系统</a>
+           <a class="navbar-brand" href="#">@(Title)项目管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="header-span">身份:管理员</span></li>
-                <li><span class="header-span">账号:20131003616</span></li>
-                <li><span class="header-span">姓名:王小明</span></li>
-                <li><a href="../Home/Project_Achievement.html">返回前台</a></li>
-                <li><a href="../index.html">返回登录界面</a></li>
+                 <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
+                <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
+                <li><a href="~/UserManager">返回前台</a></li>
+                <li><a href="~/Login/Logout">返回登录界面</a></li>
             </ul>
 
         </div>
