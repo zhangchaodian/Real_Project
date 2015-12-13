@@ -1,7 +1,9 @@
 ﻿@using ProjectManager.Model
 @{
     User  user=(User)ViewBag.userinfo;
+
   //  List<User> userList = (List<User>)Model;
+
     string Title = (string)ViewBag.title;
     }
 <!DOCTYPE html>
@@ -135,8 +137,10 @@
                      <tbody>
                     @{
                     int i=1;
+
                     foreach (User u in @ViewBag.user.GetPagingData())
                     {
+
                     <tr>
                         <td>@i</td>
                         <td>@u.ID</td>

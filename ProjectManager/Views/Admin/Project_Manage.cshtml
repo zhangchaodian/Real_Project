@@ -1,6 +1,8 @@
 ﻿@using ProjectManager.Model
 @{
+
    // List<Project> project = (List<Project>)ViewBag.project;
+
     string Title = (string)ViewBag.title;
 }
 <!DOCTYPE html>
@@ -135,8 +137,10 @@
                     </thead>
                     <tbody>
                         @{
+
                             foreach (Project  p in @ViewBag.project.GetPagingData())
                             {
+
                     <tr>
                         <td>@p.f_time</td>
                         <td>@p.p_name</td>
