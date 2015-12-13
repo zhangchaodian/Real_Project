@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Text;
 using System.IO;
+using ProjectManager.Model;
 
 namespace ProjectManager.Controllers.Admin
 {
@@ -14,23 +15,31 @@ namespace ProjectManager.Controllers.Admin
         //
         // GET: /Admin/
 
-        public ActionResult Index()
-        {
+        public ActionResult Index(int pageIndex = 1)
+        { 
+            List<Model.User> userList = BLL.AdminServer.selectUser();
+            PagingHelper<Model.User> StudentPaging = new PagingHelper<Model.User>(4, userList);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.user = StudentPaging;
             ViewBag.title = TempData["belongs_name"];
             Session.Timeout = 60;
             ViewBag.userinfo = Session["userinfo"];
-            List<Model.User> userList = BLL.AdminServer.selectUser();
+           
 
             return View("User_Manage", userList);
 
         }
-        public ActionResult Project_Manage()
-        {
+        public ActionResult Project_Manage(int pageIndex = 1)
+        { 
+             List<Project> project = BLL.ProjectServer.getAdminProject();
+            PagingHelper<Project> StudentPaging = new PagingHelper<Project >(4, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
             ViewBag.title = TempData["belongs_name"];
             ViewBag.user = User.Identity.Name;
             Model.User userInfo = (Model.User)Session["userinfo"];
             ViewBag.UserInfo = userInfo;
-            ViewBag.project = BLL.ProjectServer.getAdminProject();
+          
             return View("Project_Manage");
         }
         public ActionResult User_Manage()

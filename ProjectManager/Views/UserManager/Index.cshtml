@@ -2,7 +2,7 @@
 @using ProjectManager.DAL;
 
 @{
-    List<Project_Achievement> project = (List<Project_Achievement>)ViewBag.project;
+  //  PagingHelper<Project_Achievement> project = (PagingHelper<Project_Achievement>)ViewBag.project;
     string Title = (string)ViewBag.title;
 }
 <!DOCTYPE html>
@@ -54,7 +54,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar" ">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="~/UserManager/">@(Title)项目成果 <span class="sr-only">(current)</span></a></li>
                 <li><a href="~/UserManager/Project_Schedule">@(Title)项目进度</a></li>
@@ -128,7 +128,8 @@
                     </thead>
                     <tbody id="b1">
                         @{
-                   foreach(Project_Achievement p in project){
+                            foreach (var p in @ViewBag.project.GetPagingData())
+                            {
                     <tr>
                         <td>@p.p_id</td>
                         <td>@p.p_type</td>
@@ -141,13 +142,51 @@
                     </tr>
                         }
                         }
+
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-</div>
 
+            </div>
+
+            <div class="row">
+                 
+                       <div class="offset5 span7">
+                              <ul class="pagination">
+                                @if (@ViewBag.project.HasPrev)
+                                {
+                                  <li><a href="@Url.Action("Index", "UserManager", new { pageIndex = @ViewBag.project.PageIndex - 1 })">上一页</a></li>
+                                }
+                                  else{
+                                    <li><a href="#">上一页</a></li>
+                                }
+                                @for (int i = 1; i <= @ViewBag.project.PageCount; i++)
+                                 {
+          
+                                    <li><a href="@Url.Action("Index", "UserManager", new { pageIndex = i })">@i</a></li>
+                                 }
+                                  @if (@ViewBag.project.HasNext)
+                                {
+                                  <li><a href="@Url.Action("Index", "UserManager", new { pageIndex = @ViewBag.project.PageIndex +1 })">下一页</a></li>
+                                }
+                                  else{
+                                        <li><a href="#">下一页</a></li>
+                                  }
+                               
+                               
+                              </ul>
+                           </div>
+                 
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+     
+</div>
 
 <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="myModal_ShowDetail">
   <div class="modal-dialog modal-md">
@@ -223,7 +262,7 @@
 <script src="~/Scripts/ie-emulation-modes-warning.js"></script>
 <script src="~/Scripts/Search.js"></script>
 <script src="~/Scripts/Home_Project_Schedule.js"></script>
-  <script src="~/Scripts/progress_move.js"></script>
+<script src="~/Scripts/progress_move.js"></script>
 
  </body>
 

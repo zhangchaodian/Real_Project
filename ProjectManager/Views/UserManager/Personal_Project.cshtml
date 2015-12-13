@@ -91,7 +91,7 @@
           </div>
 
            <div class="row">	
-               @foreach (EachSchedule project in ViewBag.projects)
+               @foreach (EachSchedule project in @ViewBag.project.GetPagingData())
                {
                    switch (project.state)
                    {
@@ -328,9 +328,33 @@
                    }
                }
 
-
-		   </div>		
-        </div>
+                   <div class="row">
+                 
+                       <div class="offset5 span7">
+                             <ul class="pagination">
+                                     @if (@ViewBag.project.HasPrev)
+                                {
+                                  <li><a href="@Url.Action("Personal_Project", "UserManager", new { pageIndex = @ViewBag.project.PageIndex - 1 })">上一页</a></li>
+                                }
+                                  else{
+                                    <li><a href="#">上一页</a></li>
+                                }
+                                @for (int i = 1; i <= @ViewBag.project.PageCount; i++)
+                                 {
+          
+                                    <li><a href="@Url.Action("Personal_Project", "UserManager", new { pageIndex = i })">@i</a></li>
+                                 }
+                                  @if (@ViewBag.project.HasNext)
+                                {
+                                  <li><a href="@Url.Action("Personal_Project", "UserManager", new { pageIndex = @ViewBag.project.PageIndex +1 })">下一页</a></li>
+                                }
+                                  else{
+                                        <li><a href="#">下一页</a></li>
+                                  }
+                               </ul>
+                       </div>
+                 
+                   </div>
 </div>
 
 

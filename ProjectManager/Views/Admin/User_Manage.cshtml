@@ -1,7 +1,7 @@
 ﻿@using ProjectManager.Model
 @{
     User  user=(User)ViewBag.userinfo;
-    List<User> userList = (List<User>)Model;
+  //  List<User> userList = (List<User>)Model;
     string Title = (string)ViewBag.title;
     }
 <!DOCTYPE html>
@@ -135,7 +135,8 @@
                      <tbody>
                     @{
                     int i=1;
-                    foreach(User u in userList ){
+                    foreach (User u in @ViewBag.user.GetPagingData())
+                    {
                     <tr>
                         <td>@i</td>
                         <td>@u.ID</td>
@@ -170,7 +171,36 @@
                     </tbody>
                 </table>
             </div>
-            
+                
+
+                   <div class="row">
+                 
+                       <div class="offset5 span7">
+                             <ul class="pagination">
+                                     @if (@ViewBag.user.HasPrev)
+                                {
+                                  <li><a href="@Url.Action("index", "admin", new { pageIndex = @ViewBag.user.PageIndex - 1 })">上一页</a></li>
+                                }
+                                  else{
+                                    <li><a href="#">上一页</a></li>
+                                }
+                                @for (int a = 1; a <= @ViewBag.user.PageCount; a++)
+                                 {
+          
+                                    <li><a href="@Url.Action("index", "admin", new { pageIndex = a })">@a</a></li>
+                                 }
+                                  @if (@ViewBag.user.HasNext)
+                                {
+                                  <li><a href="@Url.Action("index", "admin", new { pageIndex = @ViewBag.user.PageIndex +1 })">下一页</a></li>
+                                }
+                                  else{
+                                        <li><a href="#">下一页</a></li>
+                                  }
+                               </ul>
+                       </div>
+                 
+            </div>
+
 
         </div>
     </div>

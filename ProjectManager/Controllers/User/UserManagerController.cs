@@ -23,14 +23,16 @@ namespace ProjectManager.Controllers.User
 
         #region 登录后进入的首个页面
         [Authorize]
-        public ActionResult index()
+        public ActionResult index(int pageIndex = 1)
         {
             ViewBag.user = User.Identity.Name;
             Model.User userInfo = (Model.User)Session["userinfo"];
             ViewBag.UserInfo = userInfo;
             project = new List<Project_Achievement>();
             project = BLL.ProjectServer.getProjectAchievement();
-            ViewBag.project = project;
+            PagingHelper<Project_Achievement> StudentPaging = new  PagingHelper<Project_Achievement>(4, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
             ViewBag.title = TempData["belongs_name"];
             return View();
         }
@@ -88,14 +90,16 @@ namespace ProjectManager.Controllers.User
 
 
         [Authorize]
-        public ActionResult Project_Schedule()
+        public ActionResult Project_Schedule(int pageIndex=1)
         {
             ViewBag.title = TempData["belongs_name"];
             ViewBag.user = User.Identity.Name;
             Model.User userInfo = (Model.User)Session["userinfo"];
             ViewBag.UserInfo = userInfo;
-            ViewBag.schedule = BLL.ProjectServer.getSchedule();
-
+           List <Model.Project_Schedule> project = BLL.ProjectServer.getSchedule();
+            PagingHelper<Model.Project_Schedule> StudentPaging = new PagingHelper<Model.Project_Schedule>(4, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
             return View("Project_Schedule");
         }
 
@@ -234,7 +238,7 @@ namespace ProjectManager.Controllers.User
         [Authorize]
 
         [Authorize]
-        public ActionResult Personal_Project(string keyword = "")
+        public ActionResult Personal_Project(string keyword = "",int pageIndex=1)
         {
             ViewBag.title = TempData["belongs_name"];
             ViewBag.user = User.Identity.Name;
@@ -242,7 +246,10 @@ namespace ProjectManager.Controllers.User
             ViewBag.userinfo = userInfo;
             BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
             ViewBag.user = server.GetUserInfo(userInfo.ID);
-            ViewBag.projects = server.GetUserProject(userInfo.ID, keyword);
+            List<Model.EachSchedule> project= server.GetUserProject(userInfo.ID, keyword);
+            PagingHelper<EachSchedule> StudentPaging = new PagingHelper<EachSchedule>(3, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
             return View("Personal_Project");
         }
         [AcceptVerbs(HttpVerbs.Post)]
