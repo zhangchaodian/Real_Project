@@ -28,7 +28,8 @@ namespace ProjectManager.DAL
            {
                sqltask += "insert into Task values("+t.t_id+",@nickname,'"+t.s_time+"','"+t.f_time+"','"+t.task_content+"',@p_id,'a');";
            }
-           sql = sql + sqltask + sqlmember;
+           string sqlcomment = "insert into Comment values(@p_id,'');";
+           sql = sql + sqltask + sqlmember+sqlcomment;
                          SqlParameter[] pars ={ 
                                  new SqlParameter("@p_id",SqlDbType.Int,32),
                                  new SqlParameter("@p_name",SqlDbType.NVarChar,32),
@@ -39,9 +40,9 @@ namespace ProjectManager.DAL
                                   new SqlParameter("@start_time",SqlDbType.DateTime,32),
                                  new SqlParameter("@end_time",SqlDbType.DateTime,32),
                                   new SqlParameter("@money",SqlDbType.NVarChar,32),
-                                 new SqlParameter("@report_file",SqlDbType.NVarChar,32),
-                                  new SqlParameter("@paper_file",SqlDbType.NVarChar,32),
-                                 new SqlParameter("@whole_file",SqlDbType.NVarChar,32),
+                                 new SqlParameter("@report_file",SqlDbType.NVarChar,256),
+                                  new SqlParameter("@paper_file",SqlDbType.NVarChar,256),
+                                 new SqlParameter("@whole_file",SqlDbType.NVarChar,256),
                                   new SqlParameter("@belongs",SqlDbType.NVarChar,32),
                                    new SqlParameter("@create_time",SqlDbType.DateTime,32),
                                    new SqlParameter("@nickname",SqlDbType.NVarChar,32),

@@ -21,7 +21,7 @@ namespace ProjectManager.Common
         /// 使用WriteFile下载文件  
         /// </summary>
         /// <param name="filePath">相对路径</param>
-        public static void WriteFile(int project_id,string file_type,string file_name)
+        public static void WriteFile(int project_id, string file_type, string file_name)
         {
             try
             {

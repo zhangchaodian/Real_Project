@@ -16,9 +16,9 @@ namespace ProjectManager.Common
    public class UpLoadServer
     {
        public static void UploadFile(Model.declareViewModel project,HttpPostedFileBase report,HttpPostedFileBase paper,HttpPostedFileBase wholefile){
-           string report_path="~/Upload/" + project.p_id+"/"+"report";
-           string paper_path="~/Upload/" + project.p_id+"/"+"paper";
-           string whole_path="~/Upload/" + project.p_id+"/"+"wholefile";
+           string report_path="~/Upload/" + project.p_id+"/"+"report/";
+           string paper_path="~/Upload/" + project.p_id+"/"+"paper/";
+           string whole_path="~/Upload/" + project.p_id+"/"+"wholefile/";
            if(Directory.Exists(HttpContext.Current.Server.MapPath("~/Upload/"+project.p_id))==false){
                Directory.CreateDirectory(HttpContext.Current.Server.MapPath(report_path));
                Directory.CreateDirectory(HttpContext.Current.Server.MapPath(paper_path));
@@ -36,14 +36,12 @@ namespace ProjectManager.Common
 
        }
 
-
-
        public static void UploadFile(int project_id, HttpPostedFileBase file, string file_type)
        {
            string file_path = "~/Upload/" + project_id + "/" + file_type + "/";
 
            file.SaveAs(HttpContext.Current.Server.MapPath(file_path) + file.FileName);
        }
-    }
 
+    }
 }

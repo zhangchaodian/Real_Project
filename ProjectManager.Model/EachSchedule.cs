@@ -27,10 +27,5 @@ namespace ProjectManager.Model
         public string end_m { get; set; }
         public string end_d { get; set; }
         public string state { get; set; }
-        public double money { get; set; }
-
-        public string report_file { get; set; }
-        public string paper_file { get; set; }
-        public string whole_pack_file { get; set; }
     }
 }

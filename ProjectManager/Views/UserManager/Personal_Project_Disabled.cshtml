@@ -68,7 +68,7 @@
                       <div class="col-sm-10 col-md-7">
                         <div class="input-group">
                          <input type="text" class="form-control" id="project_name"
-                            value="@ViewBag.eachschedule.name" readonly>
+                            value="AAA" readonly>
                          <div class="input-group-addon">
                             <span class="glyphicon glyphicon-book text-primary"></span>
                          </div>
@@ -81,7 +81,7 @@
                       <label for="lastname" class="col-sm-2 control-label">项目负责人</label>
                       <div class="col-sm-10 col-md-7">
                         <div class="input-group">
-                         <input type="text" class="form-control"   value="@ViewBag.eachschedule.Leader_nickname" readonly id="mainer_name">
+                         <input type="text" class="form-control"   value="AAA" readonly id="mainer_name">
                          <div class="input-group-addon">
                             <span class="glyphicon glyphicon-user text-primary"></span>
                          </div>   
@@ -93,7 +93,7 @@
                       <div class="col-sm-10 col-md-7">
                         <div class="input-group">
                          <input type="text" class="form-control" id="mainer_phone" 
-                            value="@ViewBag.eachschedule.Leader_phone" readonly>
+                            value="AAA" readonly>
                           <div class="input-group-addon">
                             <span class="glyphicon glyphicon-earphone text-primary"></span>
                          </div>
@@ -106,7 +106,7 @@
                       <div class="col-sm-10 col-md-7">
                         <div class="input-group">
                          <input type="text" class="form-control" id="mainer_email" 
-                            value="@ViewBag.eachschedule.Leader_email" readonly>
+                            value="AAA" readonly>
                           <div class="input-group-addon">
                             <span class="glyphicon glyphicon-envelope text-primary"></span>
                          </div>
@@ -117,20 +117,17 @@
                    <div class="form-group">
                       <label for="lastname" class="col-sm-2 control-label">项目成员</label>
                       <div class="col-sm-10 col-md-7" id="allmember_container">
-                          @foreach (var member in ViewBag.members)
-                          {
-                               <div class="row"style="margin-bottom: 5px;">
-                                  <div class="col-md-4 col-sm-4 col-xs-4" >
-                                    <div class="input-group">
-                                    <input type="text" class="form-control" id="Auto_Mainer_Name" 
-                                        value="@member.nickname" readonly>
-                                     <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-user text-primary"></span>
-                                    </div>   
-                                    </div>
-                                  </div> 
-                                </div>
-                          }
+                         <div class="row">
+                          <div class="col-md-4 col-sm-4 col-xs-4">
+                            <div class="input-group">
+                            <input type="text" class="form-control" id="Auto_Mainer_Name" 
+                                value="AAA" readonly>
+                             <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-user text-primary"></span>
+                            </div>   
+                            </div>
+                          </div> 
+                        </div>
                       </div>
                    </div>    
 
@@ -138,7 +135,7 @@
                       <label for="lastname" class="col-sm-2 control-label">项目申报人</label>
                       <div class="col-sm-10 col-md-2">
                         <div class="input-group">
-                         <input type="text" class="form-control" id="mainer_declarer_card" value="@ViewBag.eachschedule.User_nickname"readonly>
+                         <input type="text" class="form-control" id="mainer_declarer_card" value="王小明"readonly>
                           <div class="input-group-addon">
                             <span class="glyphicon glyphicon-user text-primary"></span>
                          </div>
@@ -151,7 +148,7 @@
                       <div class="col-sm-4 col-md-3">
                         <div class="input-group">
                          <input type="text" class="form-control" id="project_sort" 
-                            value="@ViewBag.eachschedule.type" readonly>
+                            value="AAA" readonly>
                          <div class="input-group-addon">
                             <span class="glyphicon glyphicon-flag text-primary"></span>
                          </div>   
@@ -195,7 +192,7 @@
                       <label for="lastname" class="col-sm-2 control-label">项目起始时间</label>
                       <div class="col-sm-4 col-md-3">
                          <div class="input-group date">
-                          <input class="form-control" size="16" type="text"  id="project_start_time" value="@ViewBag.eachschedule.start_time" readonly>
+                          <input class="form-control" size="16" type="text" value="" id="project_start_time" value="2015-1-1" readonly>
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
                         </div>
                       </div>
@@ -206,7 +203,7 @@
                       <label for="lastname" class="col-sm-2 control-label">项目结束时间</label>
                       <div class="col-sm-4 col-md-3">
                          <div class="input-group">
-                          <input class="form-control" size="16" type="text"id="project_end_time" value="@ViewBag.eachschedule.end_time" readonly>
+                          <input class="form-control" size="16" type="text" value="" id="project_end_time" value="2015-1-1" readonly>
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
                         </div>
                       </div>
@@ -217,7 +214,7 @@
                       <div class="col-sm-6 col-md-4">
                         <div class="input-group">
                          <input type="text" class="form-control" id="project_money" 
-                            value="@ViewBag.eachschedule.money" readonly>
+                            value="10000" readonly>
                          <div class="input-group-addon">
                             <span class="text-primary">RMB</span>
                          </div>   
@@ -240,25 +237,16 @@
                       <div class="row">
                           <div class="col-md-2 col-sm-2 col-xs-2"></div>
                          <div class="col-md-3 col-sm-3 col-xs-3">
-                             <form action="/UserManager/DownloadFile">
-                                  <h4>开题报告文档</h4>
-                                 <input type="hidden" name="File_Path" value="@ViewBag.eachschedule.report_file"/>
-                                    <a role="button" class="btn btn-primary download_file_button" href="/UserManager/DownloadFile/@ViewBag.eachschedule.ID/report_file" target="_blank">文件下载</a>
-                             </form>
+                          <h4>开题报告文档</h4>
+                            <button type="button" class="btn btn-primary">文件下载</button>
                          </div>
                          <div class="col-md-3 col-sm-3 col-xs-3">
-                          <form action="/UserManager/DownloadFile">
-                                  <h4>论文材料文档</h4>
-                                 <input type="hidden" name="File_Path" value="@ViewBag.eachschedule.paper_file"/>
-                                    <a role="button" class="btn btn-primary download_file_button" href="/UserManager/DownloadFile/@ViewBag.eachschedule.ID/paper_file" target="_blank">文件下载</a>
-                             </form>
+                          <h4>论文材料文档</h4>
+                            <button type="button" class="btn btn-primary">文件下载</button>
                          </div>
                          <div class="col-md-3 col-sm-3 col-xs-3">
-                            <form action="/UserManager/DownloadFile">
-                                  <h4>项目完整材料</h4>
-                                 <input type="hidden" name="File_Path" value="@ViewBag.eachschedule.whole_pack_file"/>
-                                    <a role="button" class="btn btn-primary download_file_button" href="/UserManager/DownloadFile/@ViewBag.eachschedule.ID/whole_pack_file" target="_blank">文件下载</a>
-                             </form>
+                          <h4>项目完整材料</h4>
+                            <button type="button" class="btn btn-primary">文件下载</button>
                          </div>   
                       </div>
                     </div>
@@ -268,36 +256,86 @@
                   <div id="form_container_third">
                     <h3 style="margin-bottom: 25px">第三项:项目进度时间规划表(依次为起始时间、结束时间和阶段任务)</h3>
                     <div class="form-group" id="all_tasks_container">
-
-
-                       @foreach (var task in ViewBag.tasks)
-                       {
-                             <div class="row" >
-                              <label for="lastname" class="col-sm-2 col-md-2 col-xs-12 control-label">阶段任务</label>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                <div class="input-group">
-                                  <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="@task.start_time" readonly>
-                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
-                                </div>
-                              </div>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                <div class="input-group">
-                                  <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="@task.end_time" readonly>
-                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
-                                </div>
-                              </div>
-                              <div class="col-md-4 col-sm-4 col-xs-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control task_is_empty" id="lastname" 
-                                        value="@task.task" readonly>
-                                    <div class="input-group-addon">
-                                      <span class="glyphicon glyphicon-tasks text-primary"></span>
-                                   </div>     
-                                </div>        
-                              </div>
+                      <div class="row" >
+                          <label for="lastname" class="col-sm-2 col-md-2 col-xs-12 control-label">阶段任务</label>
+                          <div class="col-md-2 col-sm-2 col-xs-3">
+                            <div class="input-group">
+                              <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="2015-1-1" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
+                            </div>
                           </div>
-                       } 
-                     
+                          <div class="col-md-2 col-sm-2 col-xs-3">
+                            <div class="input-group">
+                              <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="2015-1-1" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
+                            </div>
+                          </div>
+                          <div class="col-md-5 col-sm-5 col-xs-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control task_is_empty" id="lastname" 
+                                    value="aadsad" readonly>
+                                <div class="input-group-addon">
+                                  <span class="glyphicon glyphicon-tasks text-primary"></span>
+                               </div>     
+                            </div>        
+                          </div>
+                      </div>
+
+
+
+
+
+                      <div class="row task_is_time" >
+                          <label for="lastname" class="col-sm-2 col-md-2 col-xs-12 control-label">阶段任务</label>
+                          <div class="col-md-2 col-sm-2 col-xs-3">
+                            <div class="input-group">
+                              <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="2015-1-1" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
+                            </div>
+                          </div>
+                          <div class="col-md-2 col-sm-2 col-xs-3">
+                            <div class="input-group">
+                              <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="2015-1-1" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
+                            </div>
+                          </div>
+                          <div class="col-md-5 col-sm-5 col-xs-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control task_is_empty" id="lastname" 
+                                    value="aadsad" readonly>
+                                <div class="input-group-addon">
+                                  <span class="glyphicon glyphicon-tasks text-primary"></span>
+                               </div>     
+                            </div>        
+                          </div>
+                      </div>     
+
+
+
+                      <div class="row task_is_time" >
+                          <label for="lastname" class="col-sm-2 col-md-2 col-xs-12 control-label">阶段任务</label>
+                          <div class="col-md-2 col-sm-2 col-xs-3">
+                            <div class="input-group">
+                              <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="2015-1-1" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
+                            </div>
+                          </div>
+                          <div class="col-md-2 col-sm-2 col-xs-3">
+                            <div class="input-group">
+                              <input class="form-control task_is_empty task_is_stime" size="16" type="text" value="2015-1-1" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
+                            </div>
+                          </div>
+                          <div class="col-md-5 col-sm-5 col-xs-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control task_is_empty" id="lastname" 
+                                    value="aadsad" readonly>
+                                <div class="input-group-addon">
+                                  <span class="glyphicon glyphicon-tasks text-primary"></span>
+                               </div>     
+                            </div>        
+                          </div>
+                      </div>
 
 
                   </div> 
@@ -337,15 +375,7 @@
 <script src="~/Scripts/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="~/Scripts/ie10-viewport-bug-workaround.js"></script>
-@*<script type="text/javascript">
-    (function () {
-        $(".download_file_button").each(function () {
-            $(this).click(function () {
 
-            });
-        });
-    })();
-</script>*@
 </body>
 
 

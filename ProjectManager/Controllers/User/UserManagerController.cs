@@ -7,7 +7,7 @@ using ProjectManager.Model;
 using System.Web.Services;
 using ProjectManager.Common;
 using ProjectManager.BLL;
-using System.IO;
+
 
 namespace ProjectManager.Controllers.User
 {
@@ -24,12 +24,13 @@ namespace ProjectManager.Controllers.User
 [Authorize]
 public ActionResult index()
     {
+        ViewBag.user = User.Identity.Name;
         Model.User userInfo = (Model.User)Session["userinfo"];
-        ViewBag.UserInfo = userInfo;
+       ViewBag.UserInfo= userInfo;
          project = new List<Project_Achievement>();
         project = BLL.ProjectServer.getProjectAchievement();
         ViewBag.project = project;
-
+       ViewBag.title=(string)Session["tilte"];
         return View();
     }
     #endregion
@@ -93,7 +94,7 @@ public ActionResult index()
 
             return View("Project_Schedule");
         }
-        [Authorize]
+        
         [Authorize]
         public ActionResult Project_Declare(FormCollection collect)
         {
@@ -107,7 +108,12 @@ public ActionResult index()
             ViewBag.user = User.Identity.Name; 
             return View("Personal_Project_Abled");
         }
-
+        [Authorize]
+        public ActionResult Personal_Project_Disabled()
+        {
+            ViewBag.user = User.Identity.Name; 
+            return View("Personal_Project_Disabled");
+        }
 
         #region 完成申报功能
         [HttpPost]
@@ -115,8 +121,8 @@ public ActionResult index()
         {
             Model.declareViewModel d_project = new Model.declareViewModel();
             d_project.project_name=Request["project_name"];
-            d_project.declarant_id = (string)SessionHelper.Get("ID");
-           // d_project.declarant_id = (string)Session["ID"];
+           // d_project.declarant_id = (string)SessionHelper.Get("ID");
+            d_project.declarant_id = this.User.Identity.Name;
             d_project.phone = Request["mainer_phone"];
             d_project.email=Request["mainer_email"];
             d_project.leader=Request["mainer_name"];
@@ -129,7 +135,7 @@ public ActionResult index()
             d_project.p_id = BLL.ProjectServer.getProjectNum() + 1;
             d_project.create_time = DateTime.Now;
             //d_project.belongs=(string)Session["belongs"];
-            d_project.belongs = SessionHelper.Get("p_belongs");
+            d_project.belongs = (string)Session["p_belongs"];
             string[] ts_time = collect.GetValues("ts_time");
             string[] tf_time = collect.GetValues("tf_time");
             string[] t_content = collect.GetValues("t_content");
@@ -168,8 +174,9 @@ public ActionResult index()
                 if (BLL.DeclareService.declareProject(d_project))
                 {
                     Common.UpLoadServer.UploadFile(d_project, report_file, report_file, whole_file);
+                    Response.Write("<script>alert('申报成功！');</script>");
                 }
-                return Content("a");
+                return View("Project_Declare");
            
            
            
@@ -308,6 +315,7 @@ public ActionResult index()
             }
             return Json(sum);
         } 
+
         //更新材料
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult UpdateProjectFile()
@@ -426,8 +434,9 @@ public ActionResult index()
             Common.DownloadServer.WriteFile(project_id,file_typee,File_Path_Array[4]);
         }
 
+
         #endregion
          
-    }
+}
 }
 

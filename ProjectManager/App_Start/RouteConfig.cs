@@ -12,13 +12,12 @@ namespace ProjectManager
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            
             routes.MapRoute(
                 name: "Default1",
                 url: "{controller}/{action}/{id}/{*plus}",
-                defaults: new {id = UrlParameter.Optional }
+                defaults: new { id = UrlParameter.Optional }
             );
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

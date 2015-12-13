@@ -16,39 +16,80 @@ namespace ProjectManager.BLL
         #region 获取搜索数据模型1 首页
         public static List<Model.Project_Achievement> getSearchResult(List<Model.Project_Achievement> projectInfo, string str2, string str4, string str5)
         {
-            if (str4.Equals("p_id"))
+            if (str2.Equals("all"))
             {
-                switch (str5)
+                if (str4.Equals("p_id"))
                 {
-                    case "asc":
-                        projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.p_id ascending select rerult).ToList();
-                        break;
-                    case "desc":
-                        projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.p_id descending select rerult).ToList();
-                        break;
-                    default:
-                        projectInfo = (from rerult in projectInfo  orderby rerult.p_id descending select rerult).ToList();
-                        break;
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
 
 
 
+                    }
+                }
+                else
+                {
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo orderby rerult.f_time ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo orderby rerult.f_time descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
+
+
+                    }
                 }
             }
             else
             {
-                switch (str5)
+                if (str4.Equals("p_id"))
                 {
-                    case "asc":
-                        projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.f_time ascending select rerult).ToList();
-                        break;
-                    case "desc":
-                        projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.f_time descending select rerult).ToList();
-                        break;
-                    default:
-                        projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
-                        break;
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.p_id ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.p_id descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
 
 
+
+                    }
+                }
+                else
+                {
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.f_time ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo where (rerult.now_level.Equals(str2)) orderby rerult.f_time descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
+
+
+                    }
                 }
             }
           
@@ -149,39 +190,78 @@ namespace ProjectManager.BLL
 
         public static List<Model.Project_Schedule> getSearchResult(List<Model.Project_Schedule> projectInfo, string str2, string str4, string str5)
         {
-            if (str4.Equals("p_id"))
-            {
-                switch (str5)
+            if (str2.Equals("all")) {
+                if (str4.Equals("p_id"))
                 {
-                    case "asc":
-                        projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.p_id ascending select rerult).ToList();
-                        break;
-                    case "desc":
-                        projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.p_id descending select rerult).ToList();
-                        break;
-                    default:
-                        projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
-                        break;
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo  orderby rerult.p_id ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
 
 
 
+                    }
+                }
+                else
+                {
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo  orderby rerult.f_time ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo  orderby rerult.f_time descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
+
+
+                    }
                 }
             }
-            else
-            {
-                switch (str5)
+            else{
+                if (str4.Equals("p_id"))
                 {
-                    case "asc":
-                        projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.f_time ascending select rerult).ToList();
-                        break;
-                    case "desc":
-                        projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.f_time descending select rerult).ToList();
-                        break;
-                    default:
-                        projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
-                        break;
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.p_id ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.p_id descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
 
 
+
+                    }
+                }
+                else
+                {
+                    switch (str5)
+                    {
+                        case "asc":
+                            projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.f_time ascending select rerult).ToList();
+                            break;
+                        case "desc":
+                            projectInfo = (from rerult in projectInfo where (rerult.target_level.Equals(str2)) orderby rerult.f_time descending select rerult).ToList();
+                            break;
+                        default:
+                            projectInfo = (from rerult in projectInfo orderby rerult.p_id descending select rerult).ToList();
+                            break;
+
+
+                    }
                 }
             }
             
@@ -237,6 +317,25 @@ namespace ProjectManager.BLL
 
         #endregion
 
+        #region 获取管理页面项目列表
+        public static List<Model.Project> getAdminProject(){
+            DAL.projectinfoDAL p = new DAL.projectinfoDAL();
+            return p.getAdminProject();
+        }
+        #endregion
+
+
+        public static string updateComment(int p_id, string comment, string state)
+        {
+            DAL.projectinfoDAL dal = new DAL.projectinfoDAL();
+            if(dal.UpdateComment(p_id,comment,state)){
+                return "状态录入成功！";
+            }
+            else{
+                 return "状态录入失败！";
+            }
+            
+        }
     }
 }
        

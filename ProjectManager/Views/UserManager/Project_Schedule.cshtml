@@ -62,7 +62,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                         <div class="form-group">
                             <select class="form-control" name="updownorder2">
                                 <optgroup label="级别">
-                                    <option value="asc">目标级别(全部)</option>
+                                    <option value="all">目标级别(全部)</option>
                                     <option value="市级">市级</option>
                                     <option value="省级">省级</option>
                                     <option value="国家级">国家级</option>
@@ -80,7 +80,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                                     <option value="desc">降序</option>
                                 </optgroup>
                             </select>
-                            <button class="btn btn-embossed btn-primary" id="btn2" type="button">查询</button>
+                            <button class="btn btn-embossed btn-primary" id="btn3" type="button">查询</button>
                         </div>
                     </form>
                 </div>
@@ -95,7 +95,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                             </optgroup>
                         </select>
                         <input type="text" class="form-control" placeholder="输入关键字" name="updownorder2">
-                        <button class="btn btn-embossed btn-primary" id="btn3">搜索</button>
+                        <button class="btn btn-embossed btn-primary" id="btn4">搜索</button>
                     </form>
                 </div>
             </div>
@@ -134,7 +134,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                     <td>@project.target_level</td>
                     <td>@project.create_time</td>
                     
-                    <td><a href="~/UserManager/Project_Schedule_Each"><button class="btn btn-embossed btn-primary btn-sm">详情</button></a></td>
+                    <td><a href="~/UserManager/Project_Schedule_Each/@project.p_id"><button class="btn btn-embossed btn-primary btn-sm">详情</button></a></td>
                 </tr>
                     }
                         }
@@ -186,7 +186,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
 
 <script src="~/Scripts/progress_move.js"></script>
 <script src="~/Scripts/Home_ProjectSchedule.js"></script>
-<script src="~/Scripts/Search.js"></script>
+<script src="~/Scripts/Search_Schedule.js"></script>
 </body>
 
 

@@ -3,7 +3,8 @@
 
 @{
     List<Project_Achievement> project = (List<Project_Achievement>)ViewBag.project;
-    string Title =(string)Session["p_belongs"];
+    string Title = ViewBag.p_belongs;
+    User user = (User)ViewBag.UserInfo;
 }
 <!DOCTYPE html>
 <html>
@@ -74,7 +75,7 @@
                         <div class="form-group">
                             <select class="form-control" name="updownorder2">
                                 <optgroup label="级别">
-                                    <option value="asc">级别(全部)</option>
+                                    <option value="all">级别(全部)</option>
                                     <option value="市级">市级</option>
                                     <option value="省级">省级</option>
                                     <option value="国家级">国家级</option>
@@ -221,6 +222,7 @@
 <script src="~/Content/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="~/Scripts/ie-emulation-modes-warning.js"></script>
 <script src="~/Scripts/Search.js"></script>
+<script src="~/Scripts/Search_Schedule.js"></script>
 <script src="~/Scripts/Home_Project_Schedule.js"></script>
   <script src="~/Scripts/progress_move.js"></script>
 

@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminDAL.cs" />
     <Compile Include="DeclareDAL.cs" />
     <Compile Include="EachScheduleDAL.cs" />
     <Compile Include="PersonalProjectDAL.cs" />

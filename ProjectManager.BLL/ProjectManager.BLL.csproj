@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminServer.cs" />
     <Compile Include="DeclareService.cs" />
     <Compile Include="EachProjectServer.cs" />
     <Compile Include="PersonalProjectServer.cs" />

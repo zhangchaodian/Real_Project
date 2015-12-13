@@ -77,7 +77,6 @@ namespace ProjectManager.DAL
         #region 三个实体实例化注入属性值方法
         public EachSchedule LoadEachEntity(EachSchedule EachInfo, DataRow row)
         {
-            EachInfo.ID = Convert.ToInt32(row["ID"].ToString());
             EachInfo.name = row["name"].ToString();
             EachInfo.now_level = row["now_level"].ToString();
             EachInfo.target_level = row["target_level"].ToString();
@@ -85,7 +84,7 @@ namespace ProjectManager.DAL
             EachInfo.start_time = row["start_time"].ToString();
             EachInfo.end_time = row["end_time"].ToString();
             EachInfo.User_nickname = row["User_nickname"].ToString();
-            EachInfo.Leader_nickname = row["Leader_nickname"].ToString();
+            EachInfo.Leader_email = row["Leader_nickname"].ToString();
             EachInfo.Leader_phone = row["Leader_phone"].ToString();
             EachInfo.Leader_email = row["Leader_email"].ToString();
             EachInfo.start_y = row["start_y"].ToString();
@@ -94,11 +93,6 @@ namespace ProjectManager.DAL
             EachInfo.end_y = row["end_y"].ToString();
             EachInfo.end_m = row["end_m"].ToString();
             EachInfo.end_d = row["end_d"].ToString();
-            EachInfo.money = Convert.ToDouble(row["money"].ToString());
-            EachInfo.type = row["type"].ToString();
-            EachInfo.report_file = row["report_file"].ToString();
-            EachInfo.paper_file = row["paper_file"].ToString();
-            EachInfo.whole_pack_file = row["whole_pack_file"].ToString();
             return EachInfo;
         }
 
@@ -122,8 +116,6 @@ namespace ProjectManager.DAL
             project_task.end_d = row["end_d"].ToString();
             project_task.task = row["task"].ToString();
             project_task.state = row["state"].ToString();
-            project_task.end_time = row["end_time"].ToString();
-            project_task.start_time = row["start_time"].ToString();
             return project_task;
         }
         #endregion
