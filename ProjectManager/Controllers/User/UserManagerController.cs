@@ -46,7 +46,7 @@ namespace ProjectManager.Controllers.User
 
         #region  搜索处理1，返回json数据 首页
 
-        public JsonResult GetSearch()
+        public ActionResult GetSearch(int pageIndex=1)
         {
             string str1 = Request.Form["updownorder1"];
             string str2 = Request.Form["updownorder2"];//项目级别
@@ -55,9 +55,15 @@ namespace ProjectManager.Controllers.User
             string str5 = Request.Form["updownorder5"];
             project = BLL.ProjectServer.getProjectAchievement();
             project = BLL.ProjectServer.getSearchResult(project, str2, str4, str5);
-            string htmlstr = BLL.ProjectServer.getJsonHtml(project);
+            //string htmlstr = BLL.ProjectServer.getJsonHtml(project);
             //string tbody = "<tr><td>1</td><td>思科</td><td>IT</td><td>某某某项目</td><td>张朝钿</td><td>审核一</td><td>国家级</td><td>2015-10-29</td></tr>".ToString();
-            return Json(htmlstr, JsonRequestBehavior.AllowGet);
+
+            PagingHelper<Project_Achievement> StudentPaging = new PagingHelper<Project_Achievement>(4, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
+            ViewBag.searchType = "GetSearch";
+
+            return View("index");
 
 
 
