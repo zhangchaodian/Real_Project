@@ -51,6 +51,9 @@
     <Compile Include="EachSchedule.cs" />
     <Compile Include="Leader.cs" />
     <Compile Include="Member.cs" />
+
+    <Compile Include="PagingHelper.cs" />
+
     <Compile Include="Project.cs" />
     <Compile Include="Project_Achievement.cs" />
     <Compile Include="Project_Schedule.cs" />

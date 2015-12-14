@@ -1,6 +1,8 @@
 ﻿@using ProjectManager.Model
 @{
-    List<Project> project = (List<Project>)ViewBag.project;
+
+   // List<Project> project = (List<Project>)ViewBag.project;
+
     string Title = (string)ViewBag.title;
 }
 <!DOCTYPE html>
@@ -135,7 +137,10 @@
                     </thead>
                     <tbody>
                         @{
-                            foreach(Project p in project ){
+
+                            foreach (Project  p in @ViewBag.project.GetPagingData())
+                            {
+
                     <tr>
                         <td>@p.f_time</td>
                         <td>@p.p_name</td>
@@ -224,6 +229,35 @@
                         }
                     </tbody>
                 </table>
+            </div>
+
+
+                   <div class="row">
+                 
+                       <div class="offset5 span7">
+                             <ul class="pagination">
+                                     @if (@ViewBag.project.HasPrev)
+                                {
+                                  <li><a href="@Url.Action("Project_Manage", "admin", new { pageIndex = @ViewBag.project.PageIndex - 1 })">上一页</a></li>
+                                }
+                                  else{
+                                    <li><a href="#">上一页</a></li>
+                                }
+                                @for (int i = 1; i <= @ViewBag.project.PageCount; i++)
+                                 {
+          
+                                    <li><a href="@Url.Action("Project_Manage", "admin", new { pageIndex = i })">@i</a></li>
+                                 }
+                                  @if (@ViewBag.project.HasNext)
+                                {
+                                  <li><a href="@Url.Action("Project_Manage", "admin", new { pageIndex = @ViewBag.project.PageIndex +1 })">下一页</a></li>
+                                }
+                                  else{
+                                        <li><a href="#">下一页</a></li>
+                                  }
+                               </ul>
+                       </div>
+                 
             </div>
             
 

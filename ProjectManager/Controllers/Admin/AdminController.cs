@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using System.Text;
 using System.IO;
 
+using ProjectManager.Model;
+
+
+
 namespace ProjectManager.Controllers.Admin
 {
     [Authorize]
@@ -14,33 +18,43 @@ namespace ProjectManager.Controllers.Admin
         //
         // GET: /Admin/
 
-        public ActionResult Index()
-        {
+        public ActionResult Index(int pageIndex = 1)
+        { 
+            List<Model.User> userList = BLL.AdminServer.selectUser();
+            PagingHelper<Model.User> StudentPaging = new PagingHelper<Model.User>(4, userList);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.user = StudentPaging;
             ViewBag.title = TempData["belongs_name"];
             Session.Timeout = 60;
             ViewBag.userinfo = Session["userinfo"];
-            List<Model.User> userList = BLL.AdminServer.selectUser();
+           
 
             return View("User_Manage", userList);
 
         }
-        public ActionResult Project_Manage()
-        {
+        public ActionResult Project_Manage(int pageIndex = 1)
+        { 
+             List<Project> project = BLL.ProjectServer.getAdminProject();
+            PagingHelper<Project> StudentPaging = new PagingHelper<Project >(4, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
             ViewBag.title = TempData["belongs_name"];
             ViewBag.user = User.Identity.Name;
             Model.User userInfo = (Model.User)Session["userinfo"];
             ViewBag.UserInfo = userInfo;
-            ViewBag.project = BLL.ProjectServer.getAdminProject();
+          
             return View("Project_Manage");
         }
         public ActionResult User_Manage()
         {
+
            
             List<Model.User> userList = BLL.AdminServer.selectUser();
             ViewBag.userinfo = Session["userinfo"];
             ViewBag.title = TempData["belongs_name"];
             ViewBag.userinfo = Session["userinfo"];
             return View("User_Manage", userList);
+
         }
         #region 用户成员管理
         public ActionResult typeSelect()
@@ -99,6 +113,7 @@ namespace ProjectManager.Controllers.Admin
 
         public JsonResult modify()
         {
+
             Model.User userform = new Model.User();
             userform.ID = Request["UserID"];
             userform.pwd = Request["pwd"];
@@ -155,47 +170,23 @@ namespace ProjectManager.Controllers.Admin
             List<Model.Project> project = BLL.ProjectServer.getAdminProject();
             project = BLL.AdminServer.getSelectProject(project, now_level, target_level, state, order);
             ViewBag.project = project;
+
+            ViewBag.title = TempData["belongs_name"];
+            ViewBag.user = User.Identity.Name;
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.UserInfo = userInfo;
+            ViewBag.project = BLL.ProjectServer.getAdminProject();
+
             return View("Project_Manage");
         }
 
 
-        //下载文件
-        [HttpGet]
-        public void DownloadFile()
-        {
-            int project_id = Convert.ToInt32(RouteData.Values["id"]);
-            string File_Type = RouteData.Values["plus"].ToString();
-            BLL.PersonalProjectServer server = new BLL.PersonalProjectServer();
-            string File_Path = server.SelectEachFile(project_id, File_Type);
-            string[] File_Path_Array = File_Path.Split('/');
-            string file_typee = "";
-            switch (File_Type)
-            {
-                case "report_file":
-                    file_typee = "report";
-                    break;
-                case "paper_file":
-                    file_typee = "paper";
-                    break;
-                case "whole_pack_file":
-                    file_typee = "wholefile";
-                    break;
-            }
-            Common.DownloadServer.WriteFile(project_id, file_typee, File_Path_Array[4]);
-            //return File(new FileStream(File_Path, FileMode.Open), "application/octet-stream", Server.UrlEncode(Path.GetFileName(File_Path)));
-        }
+      
+        
 
 
-        public ActionResult projectTypeSelect()
-        {
-            string keytype = Request["keytype"];
-            string keyword = Request["keyword"];
-            List<Model.Project> project = BLL.ProjectServer.getAdminProject();
-            project = BLL.AdminServer.getprojectTypeSelect(project, keytype, keyword);
-            ViewBag.project = project;
-            return View("Project_Manage");
-        }
-        #endregion
+       
 
     }
 }
+#endregion

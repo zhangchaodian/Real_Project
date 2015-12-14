@@ -126,7 +126,8 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                 </thead>
                 <tbody id="b2">
                     @{
-                        foreach(Project_Schedule project in s_model){
+                        foreach (var project in @ViewBag.project.GetPagingData())
+                        {
                 <tr class="table_tbody_tr">
                     <input type="hidden" name="stime" value="@project.s_time">
                     <input type="hidden" name="etime" value="@project.f_time'">
@@ -151,7 +152,33 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                 
                 </tbody>
             </table>
-
+             <div class="row">
+                 
+                       <div class="offset5 span7">
+                             <ul class="pagination">
+                                     @if (@ViewBag.project.HasPrev)
+                                {
+                                  <li><a href="@Url.Action("Project_Schedule", "UserManager", new { pageIndex = @ViewBag.project.PageIndex - 1 })">上一页</a></li>
+                                }
+                                  else{
+                                    <li><a href="#">上一页</a></li>
+                                }
+                                @for (int i = 1; i <= @ViewBag.project.PageCount; i++)
+                                 {
+          
+                                    <li><a href="@Url.Action("Project_Schedule", "UserManager", new { pageIndex = i })">@i</a></li>
+                                 }
+                                  @if (@ViewBag.project.HasNext)
+                                {
+                                  <li><a href="@Url.Action("Project_Schedule", "UserManager", new { pageIndex = @ViewBag.project.PageIndex +1 })">下一页</a></li>
+                                }
+                                  else{
+                                        <li><a href="#">下一页</a></li>
+                                  }
+                               </ul>
+                       </div>
+                 
+            </div>
 
             <ul class="list-group">
               <li class="list-group-item list-group-item-info">
