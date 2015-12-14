@@ -57,9 +57,26 @@ namespace ProjectManager.BLL
         }
         #endregion
 
+        #region 调用DAL取出和修改文件的方法
         public string SelectEachFile(int ID, string File_Type)
         {
             return ppd.SelectEachFile(ID, File_Type);
         }
+        public Boolean UpdateEachFile(int ID, string File_Type, string File_Path)
+        {
+            return ppd.UpdateEachFile(ID, File_Type, File_Path);
+        }
+        public Boolean UpdateProjectState(int ID)
+        {
+            return ppd.UpdateProjectState(ID);
+        }
+        #endregion
+
+        #region 调用DAL层取消申报方法
+        public Boolean DeleteProject(int ID)
+        {
+            return ppd.DeleteProject(ID);
+        }
+        #endregion
     }
 }

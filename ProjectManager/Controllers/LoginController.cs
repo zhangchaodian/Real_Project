@@ -21,18 +21,16 @@ namespace ProjectManager.Controllers
         #region 登录验证
         public ActionResult LoginCheck()
         {
-            Session.Timeout = 30;
             string id=Request["user"];
             string pass=Request["pass"];
-            Session["ID"] = id;
-            string p_belongs=Request["p_belongs"];
-            if(p_belongs.Equals("质量工程项目管理系统")){
-                 Session["p_belongs"] = "b";
-                 Session["title"] = "质量工程项目管理系统";
-            }
-            else{
-            Session["p_belongs"] = "a";
-            Session["title"] = "科研项目管理系统";
+            Session["p_belongs"]=Request["p_belongs"];
+            switch(Session["p_belongs"].ToString()){
+                case "a":
+                    TempData["belongs_name"] = "科研";
+                    break;
+                case "b":
+                    TempData["belongs_name"] = "质量工程";
+                    break;
             }
            
             int result= BLL.UserInfoServer.CheckLogin(id,pass);
@@ -40,15 +38,17 @@ namespace ProjectManager.Controllers
 
             if (result < 0)
             {
-                return Content("登录失败！");
+                Response.Write("<script>alert('登录失败，用户名不存在或密码错误！');</script>");
+                return View("index");
+               
             }
             else
             {
                 FormsAuthentication.SetAuthCookie(id, false);
                 BLL.UserInfoServer server = new BLL.UserInfoServer();
-                Model.User u = server.getUserInfo(id, pass);
-                Session["userinfo"] = u;
-              
+                Model.User u = server.getUserInfo(id,pass);
+               Session["userinfo"] = u;
+               ViewBag.p_belongs=(string)Session["p_belongs"];
 
                 return Redirect("/usermanager/");
                

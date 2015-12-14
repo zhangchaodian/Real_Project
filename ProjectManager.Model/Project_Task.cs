@@ -16,6 +16,8 @@ namespace ProjectManager.Model
         public string end_y { get; set; }
         public string end_m { get; set; }
         public string end_d { get; set; }
+        public string start_time { get; set; }
+        public string end_time { get; set; }
         public string task { get; set; }
         public string state { get; set; }
     }
