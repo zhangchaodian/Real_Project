@@ -234,8 +234,8 @@
 
                    <div class="row">
                  
-                       <div class="offset5 span7">
-                             <ul class="pagination">
+                       <div class="offset5 span7 col-md-12 col-sm-12 col-xs-12">
+                             <ul class="pagination" style="display: table;width: auto;margin-left: auto;margin-right: auto">
                                      @if (@ViewBag.project.HasPrev)
                                 {
                                   <li><a href="@Url.Action("Project_Manage", "admin", new { pageIndex = @ViewBag.project.PageIndex - 1 })">上一页</a></li>
@@ -246,7 +246,13 @@
                                 @for (int i = 1; i <= @ViewBag.project.PageCount; i++)
                                  {
           
-                                    <li><a href="@Url.Action("Project_Manage", "admin", new { pageIndex = i })">@i</a></li>
+                                    if (@ViewBag.project.PageIndex == i)
+                                    {
+                                         <li class="active"><a>@i</a></li>
+                                    }
+                                    else{
+                                        <li><a href="@Url.Action("Project_Manage", "admin", new { pageIndex = i })">@i</a></li>
+                                    }
                                  }
                                   @if (@ViewBag.project.HasNext)
                                 {
