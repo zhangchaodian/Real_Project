@@ -37,13 +37,13 @@ namespace ProjectManager.Common
        }
 
 
-
        public static void UploadFile(int project_id, HttpPostedFileBase file, string file_type)
        {
            string file_path = "~/Upload/" + project_id + "/" + file_type + "/";
 
            file.SaveAs(HttpContext.Current.Server.MapPath(file_path) + file.FileName);
        }
+
     }
 
 }

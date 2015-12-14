@@ -334,6 +334,7 @@ namespace ProjectManager.Controllers.User
             }
             return Json(sum);
         } 
+
         //更新材料
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult UpdateProjectFile()
@@ -412,6 +413,7 @@ namespace ProjectManager.Controllers.User
         [Authorize]
         public ActionResult Personal_Project_Disabled(string ID)
         {
+
             ViewBag.title = TempData["belongs_name"];
             ViewBag.user = User.Identity.Name;
             Model.User userInfo = (Model.User)Session["userinfo"];
@@ -455,8 +457,9 @@ namespace ProjectManager.Controllers.User
             }
             Common.DownloadServer.WriteFile(project_id,file_typee,File_Path_Array[4]);
         }
+
         #endregion
          
-    }
+}
 }
 
