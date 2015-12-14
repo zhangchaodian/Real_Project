@@ -10,7 +10,7 @@ namespace LoginUnit
         [TestMethod]
         public void TestMethod1()
         {
-           int result= UserInfoServer.CheckLogin("admin","admin");
+           int result= UserInfoServer.CheckLogin("admin","admin","belongs","a");
            int expected = 0;
            Assert.AreEqual(result, expected);
         }

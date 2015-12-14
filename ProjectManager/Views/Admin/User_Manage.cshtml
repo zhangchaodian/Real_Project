@@ -40,7 +40,16 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="../../img/logo.png" class="header-logo" alt="Responsive image">
-           <a class="navbar-brand" href="#">@(Title)项目管理系统</a>
+            @if((ViewBag.userInfo.belongs)=="a"){
+            <a class="navbar-brand" href="#">科研项目管理系统</a>
+               string title = "科研";
+              ViewBag.Title=title;
+            }
+            else{
+            <a class="navbar-brand" href="#">质量工程项目管理系统</a>
+                string title = "质量工程";
+                ViewBag.Title = title;
+            }
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

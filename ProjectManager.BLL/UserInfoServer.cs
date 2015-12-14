@@ -11,12 +11,12 @@ namespace ProjectManager.BLL
    public class UserInfoServer
    {
        #region 登录匹配
-       public static int CheckLogin(string username,string pwd)
+       public static int CheckLogin(string username,string pwd,string belongs,string type)
        {
            UserInfoDAL info = new UserInfoDAL();
            User user ;
            user = info.Check(username,pwd);//获取用户数据
-           if (user!=null)
+           if (user!=null&&user.belongs.Equals(belongs)&&user.type.Equals(type))
            {
                //a教职工，b管理员
                string usertype = user.type;
@@ -27,7 +27,7 @@ namespace ProjectManager.BLL
                    return 1;
                }
            }
-           else
+           else 
            {
                return -1;
            }

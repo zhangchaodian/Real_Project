@@ -23,6 +23,7 @@ namespace ProjectManager.Controllers
         {
             string id=Request["user"];
             string pass=Request["pass"];
+            string type=Request["type"];
             Session["p_belongs"]=Request["p_belongs"];
             switch(Session["p_belongs"].ToString()){
                 case "a":
@@ -33,7 +34,7 @@ namespace ProjectManager.Controllers
                     break;
             }
            
-            int result= BLL.UserInfoServer.CheckLogin(id,pass);
+            int result= BLL.UserInfoServer.CheckLogin(id,pass,Request["p_belongs"].ToString(),Request["type"]);
            
 
             if (result < 0)
