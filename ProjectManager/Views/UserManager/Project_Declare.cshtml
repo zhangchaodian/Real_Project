@@ -185,9 +185,9 @@
 
                    <div class="form-group">
                       <label for="lastname" class="col-sm-2 control-label">项目申报人</label>
-                      <div class="col-sm-10 col-md-2">
-                        <div class="input-group">
-                         <input type="text" class="form-control" id="mainer_declarer_card" value="王小明"readonly>
+                      <div class="col-sm-4 col-md-4">
+                        <div class="input-group col-md-7" >
+                         <input type="text" class="form-control" id="mainer_declarer_card" value="@userInfo.nickname"readonly>
                           <div class="input-group-addon">
                             <span class="glyphicon glyphicon-user text-primary"></span>
                          </div>
@@ -265,7 +265,7 @@
                       <label for="lastname" class="col-sm-2 control-label">项目起始时间</label>
                       <div class="col-sm-4 col-md-3">
                          <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                          <input class="form-control" size="16" type="text" value="" id="project_start_time" placeholder="请选择时间" readonly name="s_time">
+                          <input class="form-control" size="16" type="text" value="" id="project_start_time" placeholder="请选择时间"  name="s_time" readonly>
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
                         </div>
                         <input type="hidden" id="dtp_input2" value="" />
@@ -283,11 +283,11 @@
                     <div class="form-group Check_div">
                       <label for="lastname" class="col-sm-2 control-label">项目结束时间</label>
                       <div class="col-sm-4 col-md-3">
-                         <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                         <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
                           <input class="form-control" size="16" type="text" value="" id="project_end_time" placeholder="请选择时间" readonly name="f_time">
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar text-primary"></span></span>
                         </div>
-                        <input type="hidden" id="dtp_input2" value="" />
+                        <input type="hidden" id="dtp_input3" value="" />
                       </div>
                       <p class="text-danger" style="margin-top: 8px;display: none;">
                           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -311,7 +311,7 @@
                       </div>
                       <p class="text-danger" style="margin-top: 8px;display: none;">
                           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                          金额数格式不正确
+                          金额数格式不正确,精确到分
                         </p>
                       <p class="text-danger" style="margin-top: 8px;display: none;">
                           <span class="glyphicon glyphicon-ok-circle text-primary">正确</span>

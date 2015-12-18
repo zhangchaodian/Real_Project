@@ -37,7 +37,7 @@
 	     	// 定义的函数里面的this是包着它的对象
             var that = this; 
 	     	$("#project_name").focusout(function(){
-				var value  = $(this).val();
+				var value  = $(this).val().trim();
 				if(value=='') {
 					that.firststep_status['project_name'] = false;
 					that.show_info(false,this);
@@ -51,7 +51,7 @@
 				}
 			});
 			$("#mainer_name").focusout(function(){
-				var value  = $(this).val();
+				var value  = $(this).val().trim();
 				// console.log(value);
 				if(value=='') {
 					that.firststep_status['mainer_name'] = false;
@@ -65,7 +65,7 @@
 				$("#Auto_Mainer_Name").val(value);
 			});
 			$("#mainer_phone").focusout(function(){
-				var value  = $(this).val();
+				var value  = $(this).val().trim();
 				var reg = /^1[358][0-9]{8}[0-9]$/;
 				if(!that.match_str(reg,value)) {
 					that.firststep_status['mainer_phone'] = false;
@@ -78,7 +78,7 @@
 				}
 			});
 			$("#mainer_email").focusout(function(){
-				var value  = $(this).val();
+				var value  = $(this).val().trim();
 				var reg = /^([a-zA-Z0-9]+)@[a-zA-Z0-9]+\.([a-zA-Z0-9]+)$/;
 				if(!that.match_str(reg,value)) {
 					that.firststep_status['mainer_email'] = false;
@@ -91,7 +91,7 @@
 				}
 			});
 			$("#mainer_ID_card").focusout(function(){
-				var value  = $(this).val();
+				var value  = $(this).val().trim();
 				var reg = /^[0-9][0-9]{16}[0-9]$/;
 				if(!that.match_str(reg,value)) {
 					that.firststep_status['mainer_ID_card'] = false;
@@ -105,7 +105,7 @@
 
 			});
 			$("#project_sort").focusout(function(){
-				var value  = $(this).val();
+				var value  = $(this).val().trim();
 				if(value=='') {
 					that.firststep_status['project_sort'] = false;
 					that.show_info(false,this);
@@ -119,7 +119,7 @@
 			$("#allmember_container").on("focusout",".member_name",function(){
 				    var index = $(this).parents(".Check_div").index();//返回索引值，很重要
 				    // console.log(index);
-					var value  = $(this).val();
+					var value  = $(this).val().trim();
 					if(value=='') {
 						that.firststep_status['member_name'+index] = false;
 						that.show_info(false,this);
@@ -132,8 +132,8 @@
 					$(this).parents(".Check_div").find("p").first().next().css("display","none");
 			});
 			$("#project_money").focusout(function(){
-				var value  = $(this).val();
-				var reg = /^[1-9][0-9]*$/;
+				var value  = $(this).val().trim();
+				var reg = /^[1-9][0-9]*\.[0-9][0-9]$/;
 				if(!that.match_str(reg,value)) {
 					that.firststep_status['project_money'] = false;
 					that.show_info(false,this);

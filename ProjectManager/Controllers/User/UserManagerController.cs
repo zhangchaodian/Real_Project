@@ -140,7 +140,7 @@ namespace ProjectManager.Controllers.User
             d_project.target_level = Request["target_level"];
             d_project.s_time = Convert.ToDateTime(Request["s_time"]);
             d_project.f_time = Convert.ToDateTime(Request["f_time"]);
-            d_project.money = Convert.ToInt16(Request["money"]);
+            d_project.money = Convert.ToDouble(Request["money"]);
             d_project.p_id = BLL.ProjectServer.getProjectNum() + 1;
             d_project.create_time = DateTime.Now;
             d_project.belongs="a";
@@ -223,7 +223,7 @@ namespace ProjectManager.Controllers.User
 
 
 
-            #region 朝钿的代码
+        #region 朝钿的代码
         [Authorize]
         public ActionResult Project_Schedule_Each(int ID)
         {
