@@ -42,7 +42,17 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                    @switch((string)(@ViewBag.userInfo.type)){
+                    case "a":
+               <li><span class="header-span">身份:教职工</span></li>
+                        break;
+                    case "b":
+               <li><span class="header-span">身份:管理员</span></li>
+                        break;
+                    case "c":
+               <li><span class="header-span">身份:超级管理员</span></li>
+                        break;
+                }
                 <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
                 <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
                 <li><a href="~/UserManager">返回前台</a></li>
@@ -57,7 +67,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                 <li ><a href="~/admin/User_Manage">用户成员管理<span class="sr-only">(current)</span></a></li>
+                 <li ><a href="~/admin/">用户成员管理<span class="sr-only">(current)</span></a></li>
                 <li class="active"><a href="~/admin/Project_Manage">申报项目管理</a></li>
             </ul>
         </div>

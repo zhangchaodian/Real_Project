@@ -47,14 +47,24 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-               <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                @switch((string)(@ViewBag.userInfo.type)){
+                    case "a":
+               <li><span class="header-span">身份:教职工</span></li>
+                        break;
+                    case "b":
+               <li><span class="header-span">身份:管理员</span></li>
+                        break;
+                    case "c":
+               <li><span class="header-span">身份:超级管理员</span></li>
+                        break;
+                }
                 <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
                 <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
                 @{
-                    if (@ViewBag.userInfo.type!="a")
+                    if (@ViewBag.userInfo.type != "a")
                     {
                 <li><a href="~/Admin">管理入口</a></li>
-                }
+                    }
                 }
                 <li><a href="~/Login/Logout">返回登录界面</a></li>
             </ul>
@@ -67,7 +77,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" ">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="~/UserManager/">@(ViewBag.Title)项目成果 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="#">@(ViewBag.Title)项目成果 <span class="sr-only">(current)</span></a></li>
                 <li><a href="~/UserManager/Project_Schedule">@(ViewBag.Title)项目进度</a></li>
                 <li><a href="~/UserManager/Project_Declare">@(ViewBag.Title)项目申报</a></li>
                 <li><a href="~/UserManager/Personal_Project">个人项目及信息</a></li>
@@ -139,8 +149,9 @@
                     </thead>
                     <tbody id="b1">
                         @{
-                            foreach (var p in @ViewBag.project.GetPagingData())
-                            {
+                foreach (Project_Achievement p in @ViewBag.project.GetPagingData())
+                {
+                   
                     <tr>
                         <td>@p.p_id</td>
                         <td>@p.p_type</td>
@@ -151,7 +162,8 @@
                         <td>@p.f_time</td>
                         <td><button type="button" class="btn btn-embossed btn-primary btn-xs detail" data-toggle="modal" data-target="#myModal_ShowDetail" id="@p.p_id">详情</button></td>
                     </tr>
-                        }
+                        
+                            }
                         }
 
                     </tbody>
@@ -162,39 +174,20 @@
             <div class="row">
                  
                        <div class="offset5 span7 col-md-12 col-sm-12 col-xs-12" >
-                              <ul class="pagination" style="display: table;width: auto;margin-left: auto;margin-right: auto">
-                                @if (@ViewBag.project.HasPrev)
-                                {
-                                  <li><a href="@Url.Action("Index", "UserManager", new { pageIndex = @ViewBag.project.PageIndex - 1 })">上一页</a></li>
-                                }
-                                  else{
-                                    <li><a href="#">上一页</a></li>
-                                }
-                                @for (int i = 1; i <= @ViewBag.project.PageCount; i++)
-                                 {
-                                    if (@ViewBag.project.PageIndex == i)
-                                    {
-                                         <li class="active"><a>@i</a></li>
-                                    }
-                                    else{
-                                        <li><a href="@Url.Action("Index", "UserManager", new { pageIndex = i })">@i</a></li>
-                                    }
-                                    
-                                 }
-                                  @if (@ViewBag.project.HasNext)
-                                {
-                                  <li><a href="@Url.Action("Index", "UserManager", new { pageIndex = @ViewBag.project.PageIndex +1 })">下一页</a></li>
-                                }
-                                  else{
-                                        <li><a href="#">下一页</a></li>
-                                  }
-                               
+                              <ul class="pagination" style="display: table;width: auto;margin-left: auto;margin-right: auto" id="page">
+
+                               <li><a href="#">上一页</a></li>
+                               @for (int i = 1; i <= @ViewBag.project.PageSize; i++)
+                               {
+                                   <li><a>@i</a></li>
+                               }
+                               <li><a href="#">下一页</a></li>
                                
                               </ul>
                       </div>
                  
             </div>
-
+                                
 
 
 
@@ -280,6 +273,17 @@
 <script src="~/Scripts/Search.js"></script>
 <script src="~/Scripts/Home_Project_Schedule.js"></script>
 <script src="~/Scripts/progress_move.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#page>li>a").click(function () {
+            var index = $(this).text();
+            
+            
+            alert(index);
+        });
+        
+    });
+</script>
 
  </body>
 

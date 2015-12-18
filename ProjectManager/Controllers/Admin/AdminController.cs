@@ -20,7 +20,8 @@ namespace ProjectManager.Controllers.Admin
 
         public ActionResult Index(int pageIndex = 1)
         { 
-            List<Model.User> userList = BLL.AdminServer.selectUser();
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            List<Model.User> userList = BLL.AdminServer.selectUser(userInfo.belongs);
             PagingHelper<Model.User> StudentPaging = new PagingHelper<Model.User>(4, userList);
             StudentPaging.PageIndex = pageIndex;//指定当前页
             ViewBag.user = StudentPaging;
@@ -33,23 +34,23 @@ namespace ProjectManager.Controllers.Admin
 
         }
         public ActionResult Project_Manage(int pageIndex = 1)
-        { 
-             List<Project> project = BLL.ProjectServer.getAdminProject();
+        {   
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.UserInfo = userInfo;
+            List<Project> project = BLL.ProjectServer.getAdminProject(userInfo.belongs);
             PagingHelper<Project> StudentPaging = new PagingHelper<Project >(4, project);
             StudentPaging.PageIndex = pageIndex;//指定当前页
             ViewBag.project = StudentPaging;
             ViewBag.title = TempData["belongs_name"];
             ViewBag.user = User.Identity.Name;
-            Model.User userInfo = (Model.User)Session["userinfo"];
-            ViewBag.UserInfo = userInfo;
+          
           
             return View("Project_Manage");
         }
         public ActionResult User_Manage()
         {
-
-           
-            List<Model.User> userList = BLL.AdminServer.selectUser();
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            List<Model.User> userList = BLL.AdminServer.selectUser(userInfo.belongs);
             ViewBag.userinfo = Session["userinfo"];
             ViewBag.title = TempData["belongs_name"];
             ViewBag.userinfo = Session["userinfo"];
@@ -57,24 +58,33 @@ namespace ProjectManager.Controllers.Admin
 
         }
         #region 用户成员管理
-        public ActionResult typeSelect()
+        public ActionResult typeSelect(int pageIndex=1)
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
             string keytype = Request.Form["keytype"];
             string keyword = Request.Form["keyword"];
-            List<Model.User> user = BLL.AdminServer.selectUser();
+            List<Model.User> user = BLL.AdminServer.selectUser(userInfo.belongs);
             ViewBag.userinfo = Session["userinfo"];
             List<Model.User> userList = BLL.AdminServer.getTypeSelect(user, keytype, keyword);
+            PagingHelper<Model.User> StudentPaging = new PagingHelper<Model.User>(4, userList);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.user = StudentPaging;
             return View("User_Manage", userList);
             // return Content(keytype);
         }
-        public ActionResult allSelect()
+        public ActionResult allSelect(int pageIndex=1)
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
             string type = Request.Form["updownorder1"];
             string sex = Request.Form["updownorder2"];
             string order = Request.Form["updownorder3"];
             ViewBag.userinfo = Session["userinfo"];
-            List<Model.User> user = BLL.AdminServer.selectUser();
+            List<Model.User> user = BLL.AdminServer.selectUser(userInfo.belongs);
             List<Model.User> userList = BLL.AdminServer.getAllSelect(user, type, sex, order);
+            //List<Model.User> userList = BLL.AdminServer.getTypeSelect(user, keytype, keyword);
+            PagingHelper<Model.User> StudentPaging = new PagingHelper<Model.User>(4, userList);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.user = StudentPaging;
             return View("User_Manage", userList);
         }
 
@@ -140,8 +150,10 @@ namespace ProjectManager.Controllers.Admin
         [HttpGet]
         public JsonResult getRollForm()
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.UserInfo = userInfo;
             int ID = Convert.ToInt16(Request["p_id"]);
-            List<Model.Project> project = BLL.ProjectServer.getAdminProject();
+            List<Model.Project> project = BLL.ProjectServer.getAdminProject(userInfo.belongs);
             project = (from result in project where result.p_id == ID select result).ToList();
             string str0 = project[0].pass_state;
             string str1 = project[0].comment;
@@ -161,21 +173,25 @@ namespace ProjectManager.Controllers.Admin
         }
         // 搜索
         [HttpPost]
-        public ActionResult selectProject()
+        public ActionResult selectProject(int pageIndex=1)
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.UserInfo = userInfo;
             string now_level = Request["now_level"].ToString();
             string target_level = Request["target_level"].ToString();
             string state = Request["state"].ToString();
             string order = Request["order"].ToString();
-            List<Model.Project> project = BLL.ProjectServer.getAdminProject();
+            List<Model.Project> project = BLL.ProjectServer.getAdminProject(userInfo.belongs);
             project = BLL.AdminServer.getSelectProject(project, now_level, target_level, state, order);
-            ViewBag.project = project;
+            
+            PagingHelper<Model.Project> StudentPaging = new PagingHelper<Model.Project>(4, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
 
             ViewBag.title = TempData["belongs_name"];
             ViewBag.user = User.Identity.Name;
-            Model.User userInfo = (Model.User)Session["userinfo"];
-            ViewBag.UserInfo = userInfo;
-            ViewBag.project = BLL.ProjectServer.getAdminProject();
+          
+           
 
             return View("Project_Manage");
         }

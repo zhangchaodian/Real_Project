@@ -44,7 +44,17 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-               <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                   @switch((string)(@ViewBag.userInfo.type)){
+                    case "a":
+               <li><span class="header-span">身份:教职工</span></li>
+                        break;
+                    case "b":
+               <li><span class="header-span">身份:管理员</span></li>
+                        break;
+                    case "c":
+               <li><span class="header-span">身份:超级管理员</span></li>
+                        break;
+                }
                 <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
                 <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
                  @{
@@ -135,8 +145,10 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                 </thead>
                 <tbody id="b2">
                     @{
-                        foreach (var project in @ViewBag.project.GetPagingData())
+                        foreach (Project_Schedule project in @ViewBag.project.GetPagingData())
                         {
+                             if (@project.belongs.Equals((string)ViewBag.userInfo.belongs))
+                    {
                 <tr class="table_tbody_tr">
                     <input type="hidden" name="stime" value="@project.s_time">
                     <input type="hidden" name="etime" value="@project.f_time'">
@@ -156,6 +168,7 @@ List<Project_Schedule> s_model = (List<Project_Schedule>)ViewBag.schedule;
                     
                     <td><a href="~/UserManager/Project_Schedule_Each/@project.p_id"><button class="btn btn-embossed btn-primary btn-sm">详情</button></a></td>
                 </tr>
+                    }
                     }
                         }
                 

@@ -12,14 +12,18 @@ namespace ProjectManager.BLL
     public class AdminServer
     {
         #region  管理页面搜索
-        public static List<User> selectUser(string type = null, string sex = null, string order = null)
+        public static List<User> selectUser(string belongs,string type = null, string sex = null, string order = null)
         {
             string sql = null;
 
             if (type == null && sex == null && order == null)
             {
-                sql = "select * from [UserInfo] order by ID";
-                SqlParameter[] pars = null;
+                sql = "select * from [UserInfo] where belongs=@belongs order by ID ";
+                SqlParameter[] pars = { 
+                                 new SqlParameter("@belongs",SqlDbType.NVarChar,1),
+                               
+                                 };
+                pars[0].Value = belongs;
                 DataTable da = DAL.SqlHelper.GetTable(sql, CommandType.Text, pars);
                 List<Model.User> user = new List<User>();
                 foreach (DataRow row in da.Rows)
@@ -35,19 +39,22 @@ namespace ProjectManager.BLL
                 SqlParameter[] pars ={ 
                                  new SqlParameter("@type",SqlDbType.Char,2),
                                  new SqlParameter("@sex",SqlDbType.Char,2),
+                                 new SqlParameter("@belongs",SqlDbType.NVarChar,1),
+
                                  };
 
                 switch (order)
                 {
                     case "desc":
-                        sql = "select * from [UserInfo] where type=@type and sex=@sex order by ID desc;";
+                        sql = "select * from [UserInfo] where type=@type and sex=@sex and belongs=@belongs order by ID desc;";
                         break;
                     default:
-                        sql = "select * from [UserInfo] where type=@type and sex=@sex order by ID asc;";
+                        sql = "select * from [UserInfo] where type=@type and sex=@sex and belongs=@belongs order by ID asc;";
                         break;
                 }
                 pars[0].Value = type;
                 pars[1].Value = sex;
+                pars[2].Value = belongs;
                 DataTable da = DAL.SqlHelper.GetTable(sql, CommandType.Text, pars);
                 List<Model.User> user = new List<User>();
                 foreach (DataRow row in da.Rows)
@@ -62,6 +69,8 @@ namespace ProjectManager.BLL
 
 
         }
+
+
         public static User LoadUserEntity(DataRow row)
         {
             User u = new User();

@@ -20,15 +20,21 @@ namespace ProjectManager.DAL
             return da.Rows.Count;
         }
         #region 首页实体获取
-        public List<Model.Project_Achievement> getProject_Achievement()
+        public List<Model.Project_Achievement> getProject_Achievement(string belongs)
         {
             List<Model.Project_Achievement> project = new List<Model.Project_Achievement>();
-            DataTable da = SqlHelper.GetTable("getProject_Achievement", CommandType.StoredProcedure, null);
+            SqlParameter[] pars ={ 
+                                 new SqlParameter("@belongs",SqlDbType.NVarChar,1),
+                               
+                                 };
+            pars[0].Value = belongs;
+            DataTable da = SqlHelper.GetTable("getProject_Achievement", CommandType.StoredProcedure,pars);
             Model.Project_Achievement p = null;
             foreach (DataRow row in da.Rows)
             {
                 p = new Model.Project_Achievement();
                 p.p_id = Convert.ToInt16(row["ID"]);
+                p.belongs = row["belongs"].ToString();
                 p.p_name = row["name"].ToString();
                 p.p_type = row["type"].ToString();
                 // p.p_type = ConvertToLevel("b");
@@ -127,16 +133,22 @@ namespace ProjectManager.DAL
 
 
         #region 进度模型获取
-        public List<Model.Project_Schedule> getProject_Schedule()
+        public List<Model.Project_Schedule> getProject_Schedule(string belongs)
         {
             List<Model.Project_Schedule> project = new List<Model.Project_Schedule>();
-            DataTable da = SqlHelper.GetTable("getProject_Schedule", CommandType.StoredProcedure, null);
+            SqlParameter[] pars ={ 
+                                 new SqlParameter("@belongs",SqlDbType.NVarChar,1),
+                               
+                                 };
+            pars[0].Value = belongs;
+            DataTable da = SqlHelper.GetTable("getProject_Schedule", CommandType.StoredProcedure, pars);
             Model.Project_Schedule p = null;
             foreach (DataRow row in da.Rows)
             {
                 p = new Model.Project_Schedule();
                 p.p_id = Convert.ToInt16(row["ID"]);
                 p.p_name = row["name"].ToString();
+                p.belongs = row["belongs"].ToString();
                 p.p_type = row["type"].ToString();
                 // p.p_type = ConvertToLevel("b");
                 p.target_level = ConvertToLevel(row["target_level"].ToString());
@@ -189,10 +201,16 @@ namespace ProjectManager.DAL
 
 
         #region 管理员管理项目页面
-        public List<Model.Project> getAdminProject()
+        public List<Model.Project> getAdminProject(string belongs)
         {
             List<Model.Project> project = new List<Model.Project>();
-            DataTable da = SqlHelper.GetTable("getAdminProject", CommandType.StoredProcedure, null);
+
+            SqlParameter[] pars1 ={ 
+                                 new SqlParameter("@belongs",SqlDbType.NVarChar,1),
+                               
+                                 };
+            pars1[0].Value =belongs;
+            DataTable da = SqlHelper.GetTable("getAdminProject", CommandType.StoredProcedure, pars1);
             Model.Project p = null;
 
 
@@ -215,6 +233,7 @@ namespace ProjectManager.DAL
                 p.pass_state = row["state"].ToString();
                 SqlParameter[] pars ={
              new SqlParameter("@p_id",SqlDbType.Int,32),
+            
            };
                 pars[0].Value = p.p_id;
                 DataTable result = SqlHelper.GetTable(sql, CommandType.Text, pars);
