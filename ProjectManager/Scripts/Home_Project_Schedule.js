@@ -12,19 +12,22 @@ function progress_time_judge(stime,etime,per_num,dom_now){
     this.Diff_time_EwithS = null;
     this.C_now_time = null;
     this.dom_now = dom_now;
+    //console.log(stime,etime,per_num,dom_now);
 }
 progress_time_judge.prototype = {
     constructor : progress_time_judge,
     init : function(){
         var that = this;
-        console.log(that.stime);
+      //  console.log(that.stime);
         (function(){
             //正则表达把2015-1-1的"-"替换才成"/"Date()才可以处理
             var regEx = new RegExp("\\-","gi");
             stime = that.stime.replace(regEx,"/");
             etime = that.etime.replace(regEx,"/");
+            console.log(stime,etime);
             that.U_stime = new Date(Date.parse(stime));
             that.U_etime= new Date(Date.parse(etime));
+            console.log(that.U_stime,that.U_etime);
             // 因为自己生成的Unix开始和结束时间都是00:00:00，所以先获取当前时间的年月日再生成也成00:00:00
             var now_time = new Date();
             // var now_time_str = now_time.getFullYear();
@@ -36,17 +39,18 @@ progress_time_judge.prototype = {
         })();
 
         (function(){
+            //console.log(that.C_now_time,that.U_etime);
             if(that.C_now_time >= that.U_etime){
-                // console.log("当前时间已经超过该项目的结束时间，但是进度还没到100%,危险");
+                 console.log("当前时间已经超过该项目的结束时间，但是进度还没到100%,危险");
                 $(that.dom_now).find(".progress_move").addClass("progress-bar-danger");
             }
             else{
                 if(that.Diff_time_NowWithS*100 <= that.per_num*that.Diff_time_EwithS){
-                    // console.log("当前已过时间占总时间的百分比还没有超过该项目进度的百分比，安全");
+                     console.log("当前已过时间占总时间的百分比还没有超过该项目进度的百分比，安全");
                     
                     }
                 else{
-                    // console.log("当前已过时间占总时间的百分比超过该项目进度的百分比，警惕下");
+                    console.log("当前已过时间占总时间的百分比超过该项目进度的百分比，警惕下");
                     $(that.dom_now).find(".progress_move").addClass("progress-bar-warning");
                 }    
             }

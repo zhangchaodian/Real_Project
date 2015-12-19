@@ -1,50 +1,50 @@
 ﻿//第一个查询的ajax提交表单 首页
-$(function () {
-    $("#btn1").click(function () {
-        // alert("aaaa");
-       // $("#b1").empty();
-        $.ajax({
-            url: "/UserManager/GetSearch",
-            type: "post",
-            data: $('#form1').serialize(),
-            dataType: "json",
-            success: function (response) {
-                // $("#Id").text(response.Id);
-                // $("#Name").text(response.Name);
-                // $("#Age").text(response.Age);
-                $("#b1").empty();
-                $("#b1").html(response);
-            },
-             // error: function ErrorCallback(XMLHttpRequest, textStatus, errorThrown) {
-             //             alert(errorThrown + ":" + textStatus);
-             //         },
+// $(function () {
+//     $("#btn1").click(function () {
+//         // alert("aaaa");
+//        // $("#b1").empty();
+//         $.ajax({
+//             url: "/UserManager/GetSearch",
+//             type: "post",
+//             data: $('#form1').serialize(),
+//             dataType: "json",
+//             success: function (response) {
+//                 // $("#Id").text(response.Id);
+//                 // $("#Name").text(response.Name);
+//                 // $("#Age").text(response.Age);
+//                 $("#b1").empty();
+//                 $("#b1").html(response);
+//             },
+//              // error: function ErrorCallback(XMLHttpRequest, textStatus, errorThrown) {
+//              //             alert(errorThrown + ":" + textStatus);
+//              //         },
 
 
-        });
-        return false;
-    });
-});
+//         });
+//         return false;
+//     });
+// });
 
-$(function(){
-    $("#btn2").click(function(){
+// $(function(){
+//     $("#btn2").click(function(){
      
-        $.ajax({
-            url:"/UserManager/GetSearch2",
-            type:"post",
-            data:$("#form2").serialize(),
-            dataType:"json",
-            success:function(response){
-              //  alert("aaaa");
-             $("#b1").empty();
-             $("#b1").html(response);
-            },
-            error:function(){
-                 $("#b1").empty();
-            }
-        });
-        return false;
-    });
-});
+//         $.ajax({
+//             url:"/UserManager/GetSearch2",
+//             type:"post",
+//             data:$("#form2").serialize(),
+//             dataType:"json",
+//             success:function(response){
+//               //  alert("aaaa");
+//              $("#b1").empty();
+//              $("#b1").html(response);
+//             },
+//             error:function(){
+//                  $("#b1").empty();
+//             }
+//         });
+//         return false;
+//     });
+// });
 
 
 //详情按钮的ajax实现

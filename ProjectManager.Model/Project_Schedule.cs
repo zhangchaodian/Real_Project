@@ -10,6 +10,7 @@ namespace ProjectManager.Model
     {
         public int p_id { get; set; }
         public string p_type { get; set; }
+        public string belongs { get; set; }
         public string p_name { get; set; }
         public string declarant { get; set; }
         public Leader leader { get; set; }

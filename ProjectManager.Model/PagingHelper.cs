@@ -36,5 +36,10 @@ namespace ProjectManager.Model
         {
             return DataSource.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
         }
+        public List<T> GetPagingData(int page)
+        {
+            PageIndex = page;
+            return DataSource.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+        }
     }
 }

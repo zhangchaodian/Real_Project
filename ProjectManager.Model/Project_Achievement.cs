@@ -16,6 +16,7 @@ namespace ProjectManager.Model
        public string now_level { get; set; }
        public string f_time { get; set; }
        public string create_time { get; set; }
+       public string belongs { get; set; }
        public List<Member> member { get; set; }
     }
 }

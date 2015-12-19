@@ -37,7 +37,17 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-               <li><span class="header-span">身份:@ViewBag.userInfo.type</span></li>
+                   @switch((string)(@ViewBag.userInfo.type)){
+                    case "a":
+               <li><span class="header-span">身份:教职工</span></li>
+                        break;
+                    case "b":
+               <li><span class="header-span">身份:管理员</span></li>
+                        break;
+                    case "c":
+               <li><span class="header-span">身份:超级管理员</span></li>
+                        break;
+                }
                 <li><span class="header-span">账号:@ViewBag.userInfo.ID</span></li>
                 <li><span class="header-span">姓名:@ViewBag.userInfo.nickname</span></li>
                 @{

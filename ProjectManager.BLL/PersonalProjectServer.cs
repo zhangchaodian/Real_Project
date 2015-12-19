@@ -18,7 +18,43 @@ namespace ProjectManager.BLL
         }
         public List<EachSchedule> GetUserProject(string ID, string name)
         {
-            return this.ppd.GetUserProject(ID, name);
+            List<EachSchedule> projects = this.ppd.GetUserProject(ID, name);
+
+            foreach (EachSchedule project in projects)
+            {
+                switch (project.now_level)
+                {
+                    case "a":
+                        project.now_level = "校级";
+                        break;
+                    case "b":
+                        project.now_level = "市级";
+                        break;
+                    case "c":
+                        project.now_level = "省级";
+                        break;
+                    case "d":
+                        project.now_level = "国家级";
+                        break;
+                }
+                switch (project.target_level)
+                {
+                    case "a":
+                        project.target_level = "校级";
+                        break;
+                    case "b":
+                        project.target_level = "市级";
+                        break;
+                    case "c":
+                        project.target_level = "省级";
+                        break;
+                    case "d":
+                        project.target_level = "国家级";
+                        break;
+                }
+            }
+
+            return projects;
         }
         #endregion
 

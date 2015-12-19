@@ -69,7 +69,7 @@
                     switch(D_month){
                         case 0:
                         count_day = etime[2]-stime[2];
-                        for(var i=1;i<=count_day+1;i++){
+                        for(var i=stime[2];i<=etime[2];i++){
                             var th_item = $("<th>");
                             if (i==etime[2] || i==stime[2]) {
                                     th_item.text(i + '/'+etime[0]+'.'+etime[1]);
@@ -394,7 +394,7 @@
                             for(var j=1;j<=count_day;j++){
                                 var th_item = $("<th>");
                                 if (j==1 || j==count_day) {
-                                    th_item.text(j+'/'+stime[0]+'.'+i);
+                                    th_item.text(j+'/'+etime[0]+'.'+i);
                                 }
                                 else{
                                     th_item.text(j);

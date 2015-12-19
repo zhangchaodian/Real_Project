@@ -30,7 +30,7 @@ namespace ProjectManager.Controllers.User
             Model.User userInfo = (Model.User)Session["userinfo"];
             ViewBag.UserInfo = userInfo;
             project = new List<Project_Achievement>();
-            project = BLL.ProjectServer.getProjectAchievement();
+            project = BLL.ProjectServer.getProjectAchievement(userInfo.belongs);
 
             PagingHelper<Project_Achievement> StudentPaging = new  PagingHelper<Project_Achievement>(4, project);
             StudentPaging.PageIndex = pageIndex;//指定当前页
@@ -46,18 +46,27 @@ namespace ProjectManager.Controllers.User
 
         #region  搜索处理1，返回json数据 首页
 
-        public JsonResult GetSearch()
+        public ActionResult GetSearch(int pageIndex=1)
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.UserInfo = userInfo;
             string str1 = Request.Form["updownorder1"];
             string str2 = Request.Form["updownorder2"];//项目级别
             string str3 = Request.Form["updownorder3"];
             string str4 = Request.Form["updownorder4"];
             string str5 = Request.Form["updownorder5"];
-            project = BLL.ProjectServer.getProjectAchievement();
+            project = BLL.ProjectServer.getProjectAchievement(userInfo.belongs);
             project = BLL.ProjectServer.getSearchResult(project, str2, str4, str5);
-            string htmlstr = BLL.ProjectServer.getJsonHtml(project);
+            //string htmlstr = BLL.ProjectServer.getJsonHtml(project);
             //string tbody = "<tr><td>1</td><td>思科</td><td>IT</td><td>某某某项目</td><td>张朝钿</td><td>审核一</td><td>国家级</td><td>2015-10-29</td></tr>".ToString();
-            return Json(htmlstr, JsonRequestBehavior.AllowGet);
+
+           
+            PagingHelper<Project_Achievement> StudentPaging = new PagingHelper<Project_Achievement>(4, project);
+            StudentPaging.PageIndex = pageIndex;//指定当前页
+            ViewBag.project = StudentPaging;
+           
+
+            return View("index");
 
 
 
@@ -68,10 +77,12 @@ namespace ProjectManager.Controllers.User
         #region 搜索处理2，返回json数据
         public JsonResult GetSearch2()
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.UserInfo = userInfo;
             string keyword_type = Request.Form["updownorder1"];
             string keyword = Request.Form["updownorder2"];//项目级别
             // string tbody = "<tr><td>1</td><td>思科</td><td>IT</td><td>某某某项目</td><td>张朝钿</td><td>审核一</td><td>国家级</td><td>2015-10-29</td></tr>".ToString();
-            project = BLL.ProjectServer.getProjectAchievement();
+            project = BLL.ProjectServer.getProjectAchievement(userInfo.belongs);
             project = BLL.ProjectServer.getSearchResult2(project, keyword_type, keyword);
             string htmlstr = BLL.ProjectServer.getJsonHtml(project);
             return Json(htmlstr, JsonRequestBehavior.AllowGet);
@@ -83,8 +94,10 @@ namespace ProjectManager.Controllers.User
         [HttpGet]
         public JsonResult GetDetail(int p_id)
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
+            ViewBag.UserInfo = userInfo;
             //int id=Convert.ToInt16( Request["ID"]);
-            project = BLL.ProjectServer.getProjectAchievement();
+            project = BLL.ProjectServer.getProjectAchievement(userInfo.belongs);
             // string str = "{ \"p_name\": \"挑战杯\", \"type\": \"竞赛\", \"st_name\": \"张朝钿\", \"st_detail\": \"姓名:张朝钿, 行政职务:教务主任, 手机号码:159842536, 邮箱:89756458@qq.com\", \"group\": \"zx chaodian\", \"rank\": \"国家级\", \"s_time\": \"2015-1-1\", \"f_time\": \"2015-12-1\"}";
             string str = BLL.ProjectServer.getDetail(project, p_id);
             return Json(str, JsonRequestBehavior.AllowGet);
@@ -100,7 +113,7 @@ namespace ProjectManager.Controllers.User
             Model.User userInfo = (Model.User)Session["userinfo"];
             ViewBag.UserInfo = userInfo;
 
-           List <Model.Project_Schedule> project = BLL.ProjectServer.getSchedule();
+           List <Model.Project_Schedule> project = BLL.ProjectServer.getSchedule(userInfo.belongs);
             PagingHelper<Model.Project_Schedule> StudentPaging = new PagingHelper<Model.Project_Schedule>(4, project);
             StudentPaging.PageIndex = pageIndex;//指定当前页
             ViewBag.project = StudentPaging;
@@ -196,24 +209,26 @@ namespace ProjectManager.Controllers.User
 
         public JsonResult GetSearch_Schedule()
         {
+            Model.User userInfo = (Model.User)Session["userinfo"];
             string str1 = Request.Form["updownorder1"];
             string str2 = Request.Form["updownorder2"];//项目级别
             string str3 = Request.Form["updownorder3"];
             string str4 = Request.Form["updownorder4"];
             string str5 = Request.Form["updownorder5"];
-            List<Model.Project_Schedule> project = BLL.ProjectServer.getSchedule();
+            List<Model.Project_Schedule> project = BLL.ProjectServer.getSchedule(userInfo.belongs);
             project = BLL.ProjectServer.getSearchResult(project, str2, str4, str5);
             string htmlstr = BLL.ProjectServer.getJsonHtml(project);
             //string tbody = "<tr><td>1</td><td>思科</td><td>IT</td><td>某某某项目</td><td>张朝钿</td><td>审核一</td><td>国家级</td><td>2015-10-29</td></tr>".ToString();
             return Json(htmlstr, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult getSearch_Schedule2()
-        {
+        public JsonResult getSearch_Schedule2(){
+        
+            Model.User userInfo = (Model.User)Session["userinfo"];
             string keyword_type = Request.Form["updownorder1"];
             string keyword = Request.Form["updownorder2"];//项目级别
             // string tbody = "<tr><td>1</td><td>思科</td><td>IT</td><td>某某某项目</td><td>张朝钿</td><td>审核一</td><td>国家级</td><td>2015-10-29</td></tr>".ToString();
-            List<Model.Project_Schedule> project = BLL.ProjectServer.getSchedule();
-            project = BLL.ProjectServer.getSchedule();
+            List<Model.Project_Schedule> project = BLL.ProjectServer.getSchedule(userInfo.belongs);
+            project = BLL.ProjectServer.getSchedule(userInfo.belongs);
             project = BLL.ProjectServer.getSearchResult2(project, keyword_type, keyword);
             string htmlstr = BLL.ProjectServer.getJsonHtml(project);
             return Json(htmlstr, JsonRequestBehavior.AllowGet);

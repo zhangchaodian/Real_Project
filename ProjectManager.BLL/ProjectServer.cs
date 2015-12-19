@@ -154,16 +154,16 @@ namespace ProjectManager.BLL
             return p.getProjectNum();
         }
 
-        public static List<Model.Project_Achievement> getProjectAchievement()
+        public static List<Model.Project_Achievement> getProjectAchievement(string belongs)
         {
             DAL.projectinfoDAL dal = new DAL.projectinfoDAL();
-            return dal.getProject_Achievement();
+            return dal.getProject_Achievement(belongs);
         }
 
-        public static List<Model.Project_Schedule> getSchedule()
+        public static List<Model.Project_Schedule> getSchedule(string belongs)
         {
             DAL.projectinfoDAL dal = new DAL.projectinfoDAL();
-            return dal.getProject_Schedule();
+            return dal.getProject_Schedule(belongs);
         }
 
         public static string getDetail(List<Model.Project_Achievement> project, int ID)
@@ -324,10 +324,10 @@ namespace ProjectManager.BLL
         #endregion
 
         #region 获取管理页面项目列表
-        public static List<Model.Project> getAdminProject()
+        public static List<Model.Project> getAdminProject(string belongs)
         {
             DAL.projectinfoDAL p = new DAL.projectinfoDAL();
-            return p.getAdminProject();
+            return p.getAdminProject(belongs);
         }
         #endregion
 
